@@ -16,8 +16,18 @@
 - LABs 01–05 estão apenas planejados. Não crie documentação de implementação, recursos fictícios ou arquivos de preenchimento para eles.
 - `shared/scripts`, `shared/templates` e `.github/workflows` ficam reservados para necessidades futuras.
 
+## Arquitetura evolutiva e cumulativa
+
+- Os laboratórios formam uma plataforma AWS evolutiva e cumulativa. Organize os LABs em uma sequência lógica de evolução arquitetural, permitindo reutilizar a fundação em laboratórios posteriores e em outras certificações AWS, sem reconstrução desnecessária.
+- É permitido e recomendado referenciar recursos e configurações de LABs anteriores quando houver relação técnica real. Documente essa relação e use links relativos para o LAB de origem.
+- Cada LAB deve identificar pré-requisitos, recursos herdados, recursos novos, dependências e possibilidades de reutilização futura. Quando não houver itens em uma dessas categorias, explicite isso sem inventar componentes ou dependências.
+- Para cada recurso compartilhado, registre o LAB de origem, os LABs consumidores conhecidos e a responsabilidade por manutenção e ciclo de vida, incluindo os critérios para preservação ou remoção.
+- Diferencie recursos existentes e confirmados de recursos planejados e de opções de arquitetura. Uma opção não implica implementação; registre separadamente se foi adotada. Não afirme que recursos futuros já foram provisionados.
+- A evolução para outras certificações é uma possibilidade arquitetural; não representa novos LABs ou recursos já implementados. LABs apenas planejados permanecem sujeitos às restrições de estrutura desta etapa.
+
 ## Documentação
 
+- Cada LAB deve documentar os recursos, configurações, decisões arquiteturais, validações e procedimentos de cleanup de seu escopo, incluindo dependências reais e recursos herdados da plataforma. Não mencione recursos legados, treinamentos externos, incidentes históricos ou configurações particulares que não pertençam à plataforma de laboratórios.
 - Escreva em português brasileiro, preservando a terminologia técnica AWS quando apropriado.
 - Separe histórico confirmado, procedimento reproduzível, resultado esperado e validação pendente.
 - Não invente saídas, evidências, datas de execução, versões exatas ou nomes de recursos.
@@ -44,8 +54,11 @@
 
 ## Custos e limpeza
 
-- Preserve Organizations, IAM Identity Center, MFA, atribuições de acesso e a VPC padrão.
-- Limpeza de infraestrutura exige confirmação humana do alvo, dependências e conta/região.
+- Cada LAB deve classificar seus recursos como fundacionais/compartilhados ou temporários. Recursos fundacionais podem permanecer ativos para reutilização em LABs posteriores, desde que sua manutenção seja justificada, suas dependências sejam documentadas e seus custos sejam avaliados. Recursos temporários devem possuir procedimento de remoção seguro. A conclusão de um LAB não exige a destruição de sua infraestrutura quando ela integra a fundação reutilizável da plataforma.
+- Preserve Organizations, IAM Identity Center, MFA e atribuições de acesso compartilhadas. Reversões específicas do LAB exigem aprovação humana e não podem comprometer outros acessos.
+- Cleanup exige confirmação humana do alvo, dependências e conta; confirme também a região quando aplicável.
+- O cleanup de um LAB não pode remover recursos ainda necessários para LABs posteriores. Antes de propor remoção de recursos compartilhados, confira os consumidores documentados e preserve as dependências necessárias à continuidade da plataforma.
+- Recursos temporários devem ser removidos quando não forem mais necessários, visando controle de custos. Documente sua finalidade, condição de encerramento e responsável pela remoção; a execução depende da revisão de alvos e dependências e da confirmação humana exigidas acima.
 - O operador do LAB 00 não tem permissões de exclusão; não amplie sua política para realizar limpeza.
-- A auditoria confirmada cobre NAT Gateways, Elastic IPs e VPC Endpoints em `sa-east-1`. Nunca declare a conta livre de cobranças com base nela.
+- Não declare a conta livre de cobranças com base nas validações de identidade e acesso do LAB 00.
 - Ao entregar, apresente arquivos criados, verificações realmente executadas e pendências para revisão, sem commit automático.

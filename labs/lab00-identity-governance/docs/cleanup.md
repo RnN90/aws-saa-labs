@@ -1,38 +1,47 @@
-# Limpeza e custos — LAB 00
+# Cleanup — reversão das configurações do LAB 00
 
-## Estado histórico confirmado
+## Estado e finalidade
 
-- A VPC personalizada legada foi removida manualmente.
-- A VPC padrão foi preservada.
-- A auditoria final em `sa-east-1` encontrou zero NAT Gateways, zero Elastic IPs alocados e zero VPC Endpoints.
+Não há reversão confirmada das configurações de identidade e acesso do LAB. Este documento descreve um procedimento opcional para execução humana após aprovação técnica; nenhuma etapa foi executada nesta entrega.
 
-Não foram fornecidos IDs, dependências, sequência de exclusão ou identidade usada na remoção. A política `SAA-Lab-Operator` não permite exclusão. Nenhuma limpeza foi executada pelo agente nesta entrega e não há instruções destrutivas automatizadas neste repositório.
+O escopo limita-se ao usuário, à associação ao grupo `AWS-SAA-Labs`, ao Permission Set `SAA-Lab-Operator`, à atribuição na conta de gerenciamento e à configuração SSO do perfil `aws-saa-labs`. Organizations, IAM Identity Center, diretório e MFA são configurações de governança que devem ser preservadas quando compartilhadas ou necessárias para manter acesso seguro.
 
-## Recursos e acesso que devem ser preservados
+## Pré-condições e dependências
 
-Mantenha AWS Organizations, a conta de gerenciamento, IAM Identity Center, o diretório integrado, usuário, grupo `AWS-SAA-Labs`, MFA, Permission Set e atribuição de acesso. Preserve a VPC padrão e seus componentes necessários. Eles não devem ser removidos para encerrar o LAB 00.
+Identidade necessária no Console: administrador autorizado a gerenciar os componentes de identidade e acesso envolvidos. A política operacional do LAB não autoriza essa reversão e não deve ser ampliada para realizá-la.
 
-Não remova a atribuição de acesso ou a última forma administrativa de recuperação como parte de limpeza de networking. Não exclua a role `AWSReservedSSO` manualmente. Remover todas as atribuições de um Permission Set na conta pode causar a exclusão da role pelo serviço e alterar seu sufixo em futura recriação. Consulte o [ciclo de vida da role](https://docs.aws.amazon.com/singlesignon/latest/userguide/referencingpermissionsets.html).
+Antes de qualquer alteração, o responsável deve:
 
-Configuração e caches locais da CLI pertencem ao usuário e devem permanecer fora do Git. Esta etapa não exige alterar perfil, apagar caches, revogar sessões ou executar logout.
+1. Confirmar privadamente a conta de gerenciamento e a instância do IAM Identity Center em `sa-east-1`.
+2. Identificar quais componentes foram criados exclusivamente para o LAB e quais foram apenas utilizados ou configurados nele. O registro não comprova exclusividade de todos os componentes; em caso de dúvida, preservá-los.
+3. Conferir membros do grupo, atribuições a contas e aplicações, usos do Permission Set e referências à role provisionada. Não remover componentes utilizados por outras pessoas ou atividades.
+4. Garantir acesso administrativo independente e recuperação com MFA antes de retirar o acesso do participante. Não remover a última forma de acesso administrativo.
+5. Aprovar explicitamente os alvos, a ordem e o impacto. Não há exclusão automática ou seleção em massa de alvos neste procedimento.
 
-## Proteção para qualquer limpeza futura
+## Console — reversão seletiva de acesso
 
-Uma nova intervenção depende de autorização humana específica; a execução histórica não autoriza exclusões adicionais.
+As etapas dependem da revisão anterior. Execute somente as que correspondam a componentes exclusivos do LAB e aprovados para remoção.
 
-1. Confirme privadamente a conta e a região do alvo com o responsável.
-2. Faça inventário de leitura e confirme propriedade, finalidade, tags e dependências. Ausência de tags não prova que um recurso pode ser excluído.
-3. Verifique se a VPC é padrão e se há workloads compartilhados, interfaces de rede, endpoints, rotas ou dependências gerenciadas por outros serviços.
-4. Registre o alvo e o impacto em ambiente privado; obtenha a revisão do responsável antes de qualquer exclusão.
-5. Use uma identidade autorizada com as permissões específicas necessárias, sem ampliar o Permission Set operacional apenas para limpar.
-6. Após uma intervenção autorizada, repita as [consultas de leitura](validation.md) e revise os custos. Sanitizar eventuais evidências antes de publicação.
+1. Em **IAM Identity Center → AWS accounts**, remova a atribuição do grupo `AWS-SAA-Labs` ao Permission Set `SAA-Lab-Operator` na conta de gerenciamento, se ela não for mais necessária. Confira outras atribuições antes de prosseguir.
+2. Gerencie a role `AWSReservedSSO` pelo IAM Identity Center; não a exclua nem edite diretamente no IAM. Remover todas as atribuições do Permission Set na conta pode excluir a role pelo serviço; uma nova atribuição pode gerar outro sufixo e invalidar referências ao ARN anterior. Veja o [ciclo de vida da role](https://docs.aws.amazon.com/singlesignon/latest/userguide/referencingpermissionsets.html).
+3. Em **Permission sets**, exclua `SAA-Lab-Operator` somente após confirmar que não restam atribuições ou dependências. A política versionada no repositório permanece como parte da documentação aprovada.
+4. Em **Groups**, remova a associação do participante ao grupo somente se ela for exclusiva do LAB. Exclua o grupo apenas se ele não tiver outros membros, atribuições ou usos.
+5. Em **Users**, exclua a identidade do participante somente se tiver sido criada exclusivamente para o LAB e não possuir outros acessos ou dependências. Preserve usuários compartilhados e seu MFA; não desative a exigência de MFA da instância para encerrar o LAB.
 
-Não use exclusão em massa, comandos com seleção automática de alvos ou dependências inferidas. Excluir uma VPC exige avaliar seus componentes; a documentação não presume que a remoção da VPC tenha eliminado todo recurso relacionado ou toda cobrança.
+A exclusão de Organizations, da conta de gerenciamento, da instância do IAM Identity Center ou do diretório integrado não faz parte deste cleanup. Essas operações afetam a governança e o acesso compartilhado e exigem planejamento próprio. Mudanças globais de autenticação e MFA também não devem ser revertidas automaticamente.
 
-## Interpretação de custos
+## CLI local — configuração do participante
 
-O resultado regional dos três tipos de recurso não equivale a uma auditoria financeira da conta. Recursos em outras regiões, outros serviços, armazenamento, tráfego e outros itens faturáveis não foram integralmente examinados. Custos de VPC Endpoints dependem do tipo; a contagem isolada também não calcula uma fatura.
+Identidade necessária: proprietário do ambiente local, após revisão de perfis e sessões utilizados por outras atividades.
 
-Para uma revisão futura, um responsável com acesso apropriado deve examinar **Billing and Cost Management**, **Bills** e **Cost Explorer**, por serviço, região e período. Considere o intervalo entre consumo e atualização dos dados de faturamento. A política operacional não concede esse acesso. Não há Budget, alerta de custo ou auditoria financeira completa confirmado no histórico.
+O perfil `aws-saa-labs` pode ser mantido para reproduzir o LAB. Se sua remoção for aprovada, o participante deve remover somente a configuração desse perfil e uma eventual seção SSO que seja comprovadamente exclusiva dele, preservando outras configurações. Não publique o conteúdo dos arquivos locais.
 
-Não declare que a conta está totalmente livre de cobranças. Consulte [Billing and Cost Management](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-what-is.html) e a [página oficial de preços de VPC](https://aws.amazon.com/vpc/pricing/) para uma análise atual antes de novas atividades.
+Esta entrega não altera configuração, credenciais, caches ou sessões. Não há comandos de logout nem remoção automática de caches: sessões SSO podem ser compartilhadas entre perfis e a retirada de uma configuração local não comprova revogação de acesso na AWS.
+
+## Validação posterior à reversão
+
+Resultado esperado, quando a reversão for aprovada e realizada: somente os acessos e componentes selecionados do LAB são removidos, mantendo o acesso administrativo e os componentes compartilhados.
+
+O administrador deve conferir no Console as atribuições, os membros e as dependências remanescentes. O participante deve conferir privadamente o estado do perfil local, caso tenha sido alterado. Registre apenas resultados efetivamente observados e sanitizados; essa validação permanece pendente e não foi executada nesta entrega.
+
+As [validações de identidade e acesso](validation.md) não constituem auditoria financeira e não comprovam ausência de cobranças na conta.

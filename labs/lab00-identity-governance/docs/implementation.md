@@ -31,6 +31,8 @@ Referência: [instâncias do IAM Identity Center](https://docs.aws.amazon.com/si
 
 ## 3. Console AWS — usuário, grupo e MFA
 
+Identidades necessárias: administrador autorizado para configurar usuário, grupo e MFA; participante para registrar seu autenticador e realizar login.
+
 1. Em **Users**, configure uma identidade individual para o participante, sem compartilhar credenciais. A identidade já existe no histórico; seu nome e dados pessoais são omitidos.
 2. Em **Groups**, configure o grupo `AWS-SAA-Labs` e associe o usuário.
 3. Em **Settings → Authentication → Multi-factor authentication → Configure**, selecione **Every time they sign in (always-on)**.
@@ -43,11 +45,13 @@ Referência: [MFA no IAM Identity Center](https://docs.aws.amazon.com/singlesign
 
 ## 4. Console AWS — Permission Set e atribuição
 
+Identidade necessária: administrador autorizado a gerenciar Permission Sets e atribuições na conta de gerenciamento.
+
 1. Em **Permission sets**, configure um Permission Set personalizado chamado `SAA-Lab-Operator`.
 2. Use a [política IAM validada](../iam/policies/saa-lab-operator.json) como inline policy do Permission Set na reprodução. O histórico confirma o conteúdo da política, mas não detalha a forma original de anexação.
 3. Defina **Session duration** como **1 hour** (`PT1H`).
 4. Revise as políticas associadas para evitar permissões adicionais às publicadas; não acrescente `AdministratorAccess`.
-5. Em **AWS accounts**, selecione a conta aprovada e escolha **Assign users or groups**. Selecione o grupo `AWS-SAA-Labs` e o Permission Set `SAA-Lab-Operator`.
+5. Em **AWS accounts**, selecione a conta de gerenciamento aprovada e escolha **Assign users or groups**. Selecione o grupo `AWS-SAA-Labs` e o Permission Set `SAA-Lab-Operator`. Essa atribuição reproduz a simplificação educacional do LAB; para workloads, prefira contas-membro dedicadas, conforme a [arquitetura](architecture.md).
 6. Aguarde a conclusão da atribuição e do provisionamento. Após mudanças futuras no Permission Set, confira se foram provisionadas nas contas atribuídas.
 7. Verifique pelo portal se a conta e o Permission Set estão disponíveis ao participante. Não edite a role `AWSReservedSSO` criada pelo serviço.
 
@@ -55,7 +59,9 @@ O operador não consegue executar essas etapas com a própria política. Consult
 
 ## 5. CLI local — configuração para reprodução humana
 
-Ambiente confirmado: AWS CLI v2 em Ubuntu, perfil `aws-saa-labs`, região padrão `sa-east-1`. O nome privado da estação e a versão exata da CLI não são necessários à reprodução e não são publicados.
+Identidade necessária: participante associado ao grupo com o Permission Set atribuído.
+
+Configuração confirmada: AWS CLI v2, perfil `aws-saa-labs`, região padrão `sa-east-1`. A versão exata da CLI não foi registrada.
 
 A instalação da CLI v2 é um pré-requisito. Caso necessário em outro ambiente, siga a [instalação oficial](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html). Não há instalação automática neste repositório.
 
@@ -74,7 +80,7 @@ No assistente, informe privadamente:
 | SSO start URL | URL real do portal obtida no Console; não publicar |
 | SSO region | `sa-east-1` |
 | SSO registration scopes | `sso:account:access` para acesso às contas atribuídas |
-| AWS account | Conta aprovada pelo responsável; não publicar o ID |
+| AWS account | Conta de gerenciamento atribuída no LAB; não publicar o ID |
 | Role / Permission Set | `SAA-Lab-Operator` |
 | CLI default client Region | `sa-east-1` |
 | CLI default output format | `json` sugerido para reprodução; formato histórico não informado |
@@ -94,6 +100,6 @@ Após autenticação humana, siga os [comandos e critérios de validação](vali
 
 Em caso de `AccessDenied`, confira perfil, conta atribuída, associação ao grupo, provisionamento do Permission Set e possíveis negações aplicáveis. Em caso de sessão expirada, o participante deve autenticar novamente pelo fluxo aprovado. Nenhum desses casos justifica ampliar automaticamente a política.
 
-## 7. Limpeza histórica
+## 7. Reversão das configurações do LAB
 
-A VPC personalizada legada foi removida manualmente e a VPC padrão preservada. Não há registro detalhado das dependências, comandos, IDs ou identidade usados nessa remoção; não é possível reconstruir uma sequência exata de exclusão. A política publicada não autoriza essa operação. Consulte [limpeza e custos](cleanup.md) para as salvaguardas de qualquer intervenção futura.
+Não há reversão confirmada das configurações de identidade e acesso do LAB. O [procedimento de cleanup](cleanup.md) descreve uma reversão opcional para revisão humana, com dependências e preservação de acesso administrativo e de configurações compartilhadas.

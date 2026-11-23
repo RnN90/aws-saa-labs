@@ -14,8 +14,6 @@ flowchart TD
         Directory["Diretório integrado: usuário e MFA"]
         Group["Grupo AWS-SAA-Labs"]
         PS["Permission Set SAA-Lab-Operator: sessão de 1 hora"]
-    end
-    subgraph Assigned["Conta AWS atribuída ao grupo"]
         Role["Role provisionada AWSReservedSSO"]
         APIs["Consultas autorizadas: Organizations e EC2"]
     end
@@ -35,7 +33,7 @@ flowchart TD
     Temp -->|"chamadas assinadas"| APIs
 ```
 
-A conta atribuída é uma representação lógica do destino do acesso; não indica uma segunda conta criada. O histórico não detalha um inventário de contas membro. Administração da organização e uso da role operacional são responsabilidades distintas.
+A atribuição do Permission Set e a role operacional estão na própria conta de gerenciamento, por simplificação educacional. Para workloads, recomenda-se utilizar contas-membro dedicadas. Administração da organização e uso da role operacional são responsabilidades distintas.
 
 ## Fluxo de autenticação e uso da CLI
 
@@ -45,7 +43,7 @@ sequenceDiagram
     participant CLI as AWS CLI v2
     participant IC as IAM Identity Center
     participant Dir as Diretório integrado e MFA
-    participant Account as Conta AWS e role provisionada
+    participant Account as Conta de gerenciamento e role provisionada
     participant API as APIs AWS
     User->>CLI: Iniciar login SSO com perfil aws-saa-labs
     CLI->>IC: Iniciar autorização no navegador

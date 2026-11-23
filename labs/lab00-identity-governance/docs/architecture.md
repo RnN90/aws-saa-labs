@@ -9,8 +9,8 @@ O Permission Set `SAA-Lab-Operator` foi atribuído ao grupo `AWS-SAA-Labs` na pr
 | Responsabilidade | Identidade apropriada |
 | --- | --- |
 | Configurar Organizations, Identity Center, MFA e atribuições | Administrador autorizado; fora do escopo da política operacional |
-| Consultar organização e networking | Grupo `AWS-SAA-Labs`, Permission Set `SAA-Lab-Operator` |
-| Aprovar e realizar limpeza de infraestrutura | Responsável autorizado com permissões específicas e revisão do alvo |
+| Executar consultas permitidas pela política aprovada | Grupo `AWS-SAA-Labs`, Permission Set `SAA-Lab-Operator` |
+| Aprovar e reverter configurações do LAB | Administrador autorizado, após revisão das dependências e preservação de acessos compartilhados |
 | Manter a documentação | Colaborador local, sem necessidade de acesso à AWS |
 
 Em ambientes corporativos, prefira contas-membro dedicadas para laboratórios e workloads. A conta de gerenciamento deve permanecer restrita às atividades administrativas necessárias. Não execute workloads de estudo nessa conta como prática padrão para os próximos laboratórios. A separação em contas-membro é uma recomendação futura, não um recurso criado neste LAB. SCPs não concedem permissões e **não restringem diretamente usuários nem roles da conta de gerenciamento**. O menor privilégio nessa conta depende dos controles IAM e da separação de acesso. Referências: [SCPs](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html) e [boas práticas da conta de gerenciamento](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_best-practices_mgmt-acct.html).
@@ -32,6 +32,8 @@ Se todas as atribuições desse Permission Set forem removidas de uma conta, a r
 ## Política e menor privilégio
 
 A [política validada](../iam/policies/saa-lab-operator.json) permite duas consultas de Organizations e nove operações EC2 `Describe`. Não permite criar, alterar ou excluir infraestrutura, administrar IAM/Identity Center ou consultar faturamento.
+
+As 11 ações são preservadas integralmente como configuração aprovada do Permission Set. As permissões EC2 não implicam criação de recursos de rede nem tornam inventários de rede parte dos requisitos deste LAB de identidade e governança.
 
 As operações EC2 presentes nessa política não oferecem autorização por ARN de recurso na tabela de autorização do serviço. Por isso exigem `Resource: "*"`. Isso abrange os recursos consultáveis pelas ações listadas, sem conceder outras ações EC2. Não generalize essa regra para todas as operações `Describe`: confira cada ação na [Service Authorization Reference do EC2](https://docs.aws.amazon.com/service-authorization/latest/reference/list_ec2.html).
 

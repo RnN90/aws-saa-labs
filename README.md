@@ -4,6 +4,16 @@ Programa de estudos com laboratórios hands-on para a certificação **AWS Certi
 
 Este repositório começa pela governança de identidades. O LAB 00 já foi executado e validado; esta entrega documenta o histórico informado pelo responsável. Nenhum recurso AWS é provisionado pelos arquivos desta etapa.
 
+## Plataforma evolutiva
+
+Os laboratórios formam uma **plataforma AWS evolutiva e cumulativa**, organizada em uma sequência lógica de evolução arquitetural. Recursos e configurações de um LAB podem ser reutilizados por LABs posteriores quando houver uma relação técnica real, inclusive em estudos para outras certificações AWS. A fundação deve permitir essa evolução sem reconstrução desnecessária.
+
+Cada LAB deve identificar seus pré-requisitos, recursos herdados, recursos novos, dependências e possibilidades de reutilização futura, com referências ao LAB de origem. Recursos compartilhados devem registrar sua origem, consumidores conhecidos e responsabilidade por manutenção e ciclo de vida. A documentação deve distinguir recursos existentes e confirmados, recursos planejados e opções ainda não adotadas, sem presumir dependências ou provisionamento futuro.
+
+O cleanup deve preservar recursos necessários aos LABs posteriores. Recursos temporários devem ser removidos quando deixarem de ser necessários, após revisão das dependências e aprovação humana, para controlar custos. Recursos legados, treinamentos externos, incidentes históricos e configurações particulares que não pertençam à plataforma ficam fora da documentação. As regras completas estão em [AGENTS.md](AGENTS.md).
+
+Essa diretriz orienta a evolução futura: somente o LAB 00 está registrado como executado; os LABs 01–05 permanecem planejados, sem implementação documentada.
+
 ## Objetivos
 
 - Utilizar acesso federado, MFA e credenciais temporárias.
@@ -15,7 +25,7 @@ Este repositório começa pela governança de identidades. O LAB 00 já foi exec
 
 - Conta AWS sob responsabilidade do participante e acesso administrativo autorizado para a configuração inicial.
 - Conhecimentos básicos de IAM, redes e terminal Linux.
-- AWS CLI v2 no ambiente de estudo; a execução histórica ocorreu no Ubuntu.
+- AWS CLI v2 no ambiente de estudo.
 - Navegador e dispositivo MFA compatível com IAM Identity Center.
 - Revisão de custos e do escopo de cada laboratório antes de qualquer execução futura.
 
@@ -45,6 +55,6 @@ Os diretórios dos LABs 01–05, `shared/scripts`, `shared/templates` e `.github
 
 ## Segurança e custos
 
-A política do LAB 00 é de leitura e não autoriza a criação ou remoção de infraestrutura. A VPC personalizada legada foi removida manualmente; a VPC padrão foi preservada. A auditoria histórica identificou zero NAT Gateways, zero Elastic IPs alocados e zero VPC Endpoints em `sa-east-1`.
+A política do LAB 00 é de leitura e não autoriza a criação ou remoção de infraestrutura. O Permission Set foi atribuído na conta de gerenciamento por simplificação educacional; para workloads, recomenda-se utilizar contas-membro dedicadas.
 
-Esse resultado é restrito aos recursos e à região consultados. **Não comprova ausência de cobranças na conta**, pois não houve auditoria completa de todos os serviços e regiões. Consulte as [orientações de limpeza e custos](labs/lab00-identity-governance/docs/cleanup.md).
+As validações de identidade e acesso **não comprovam ausência de cobranças na conta**. Consulte as [orientações de reversão do LAB 00](labs/lab00-identity-governance/docs/cleanup.md) antes de desativar acessos ou configurações.
