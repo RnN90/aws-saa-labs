@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Emit a deterministic CI matrix from tracked lab Terraform roots; no AWS access."""
+"""Gera uma matriz determinística de CI com os diretórios raiz Terraform versionados, sem acesso à AWS."""
 import json
 import re
 import subprocess

@@ -1,4 +1,4 @@
-# Cleanup — reversão das configurações do LAB 00
+# Limpeza — reversão das configurações do LAB 00
 
 ## Estado e finalidade
 

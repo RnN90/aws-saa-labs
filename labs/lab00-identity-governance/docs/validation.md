@@ -81,4 +81,4 @@ Essa lista orienta uma revisão; não representa um novo teste realizado. Não h
 
 ## Validações locais da documentação
 
-Parse JSON, conferência da lista de ações, links relativos e revisão estrutural de Markdown podem ser realizados sem AWS. Eles não substituem IAM Access Analyzer, renderização Mermaid, teste de permissões na conta ou auditoria de custos. A entrega informa separadamente quais verificações locais foram realmente executadas.
+Análise de sintaxe JSON, conferência da lista de ações, links relativos e revisão estrutural de Markdown podem ser realizados sem AWS. Eles não substituem IAM Access Analyzer, renderização Mermaid, teste de permissões na conta ou auditoria de custos. A entrega informa separadamente quais verificações locais foram realmente executadas.

@@ -1,68 +1,76 @@
-# LAB 01 — Engineering review
+# LAB 01 — Revisão de engenharia
 
-## Scope and baseline
+## Escopo e referência inicial
 
-Reviewed repository structure, all tracked Terraform files, ignore rules, documentation, workflow and commit history before editing. Baseline: `d8e041b` (merge of LAB 01 implementation `c58ce1d`); earlier LAB 00 documentation originated in `bd1b972` and was refined in `f0f0391` / PR #1. The working branch is `chore/lab01-engineering-review`.
+A estrutura do repositório, todos os arquivos Terraform versionados, as regras de exclusão, a documentação, o workflow e o histórico de commits foram revisados antes das alterações. Referência inicial: `d8e041b` (merge da implementação do LAB 01, `c58ce1d`); a documentação anterior do LAB 00 teve origem em `bd1b972` e foi refinada em `f0f0391` / PR #1. A branch de trabalho é `chore/lab01-engineering-review`.
 
-The owner confirmed historical provisioning, AWS CLI / Terraform State inspection and destruction of 12 resources. No workload connectivity test was performed. No AWS API calls, apply, destroy, IAM or Organizations changes were executed during this review. No deployment pipeline was added.
+O responsável confirmou o provisionamento histórico, a inspeção pela AWS CLI e pelo Terraform State e a destruição de 12 recursos. Não foram realizados testes de conectividade entre workloads. Esta revisão não executou chamadas à API AWS, apply, destroy ou alterações em IAM ou Organizations. Não foi adicionada pipeline de provisionamento.
 
-A pre-existing untracked LAB 01 IAM directory was preserved locally and excluded from this delivery. Its policy is not represented as complete or validated. LAB 00 files and its approved IAM policy remain unchanged.
+Um diretório IAM preexistente e não versionado do LAB 01 foi preservado localmente e excluído desta entrega. Sua política não é apresentada como completa ou validada. Os arquivos do LAB 00 e sua política IAM aprovada permanecem preservados; eventuais ajustes de idioma não alteram sua configuração.
 
-## Findings and decisions
+## Constatações e decisões
 
-| Finding | Resolution and impact |
+| Constatação | Solução e impacto |
 | --- | --- |
-| Provider contained a real account ID | Required local `aws_account_id` with 12-digit validation, still enforced by `allowed_account_ids`. No public real ID remains in the current provider. Existing users must set the new variable before planning. |
-| Variables lacked descriptions and validation | English descriptions, non-null mandatory inputs, IPv4 syntax checks, two-entry list alignment, uniqueness within lists, AZ/Region consistency and non-empty-or-null profile. Defaults unchanged. CIDR overlap/containment remains an operator review responsibility. |
-| Several outputs lacked descriptions | Describe all six existing outputs without renaming or changing values. |
-| Potential count-to-for_each churn | Keep count, list order, tags and resource addresses. No module extraction or state migration is justified. |
-| Working CI used mutable action tags and deprecated runtimes | Pin verified checkout v7.0.1 and setup-terraform v4.0.1 commit SHAs; both declare Node.js 24. Keep Terraform 1.15.8 and AWS provider lock 6.74.0. |
-| Discovery depended only on versions.tf filenames | Discover tracked direct Terraform root files in the documented layout, require tracked versions and lock files, sort/deduplicate, log empty discovery, reject matrices over 256 jobs. Add seven standard-library unit tests, executed in CI. |
-| Missing operational bounds | Disable persisted checkout credentials; retain contents:read, concurrency cancellation and fail-fast:false. Add job timeouts, max-parallel:4, explicit runner version and chore/fix push triggers. |
-| Documentation described implemented LAB 01 as planned | Update root navigation and status, add English technical README with 19 sections, contribution guide and permanent AGENTS instructions. Preserve LAB 00. |
-| Local artifact exposure risk | Retain state/tfvars/plan/credential exclusions and add root crash-report and plan-variant exclusions. Keep lock files tracked. |
+| O provider continha um ID real de conta | Parâmetro local obrigatório `aws_account_id`, com validação de 12 dígitos e restrição mantida por `allowed_account_ids`. Não há ID real público no provider atual. Usuários existentes precisam definir a nova variável antes de gerar planos. |
+| Variáveis sem descrições ou validações suficientes | Descrições em pt-BR, parâmetros obrigatórios não nulos, validação de sintaxe IPv4, correspondência entre listas de duas entradas, unicidade dentro das listas, consistência entre AZ e região e perfil não vazio ou nulo. Valores padrão preservados. A verificação de sobreposição e contenção de CIDRs continua sob responsabilidade do operador. |
+| Alguns outputs não tinham descrição | Descrições para os seis outputs existentes, sem renomeá-los ou alterar seus valores. |
+| Possível impacto de uma mudança de count para for_each | Manutenção de count, ordem das listas, tags e endereços de recursos. Não há justificativa para extrair módulos ou migrar o estado. |
+| CI funcional com tags mutáveis de actions e runtimes descontinuados | Fixação dos SHAs verificados de checkout v7.0.1 e setup-terraform v4.0.1; ambos declaram Node.js 24. Manutenção do Terraform 1.15.8 e do lock do provider AWS em 6.74.0. |
+| A descoberta dependia somente de arquivos chamados versions.tf | Descoberta dos arquivos diretos dos diretórios raiz Terraform versionados no padrão documentado, exigência de versions e lock versionados, ordenação e deduplicação, registro de descoberta vazia e rejeição de matrizes com mais de 256 jobs. Adição de sete testes unitários com a biblioteca padrão, executados no CI. |
+| Faltavam limites operacionais | Desabilitação da persistência de credenciais do checkout; manutenção de contents:read, cancelamento por concorrência e fail-fast:false. Adição de limites de tempo, max-parallel:4, versão explícita do runner e gatilhos de push para chore/fix. |
+| A documentação descrevia o LAB 01 implementado como planejado | Atualização da navegação e do estado na raiz, README técnico com 19 seções, guia de contribuição e instruções permanentes no AGENTS. O ajuste complementar estabelece pt-BR em toda a documentação. Conteúdo técnico do LAB 00 preservado. |
+| Risco de exposição de artefatos locais | Manutenção das exclusões de estado, tfvars, planos e credenciais; adição de exclusões na raiz para relatórios de falha e variantes de planos. Lock files continuam versionados. |
 
-## Architecture preservation and compatibility
+## Preservação da arquitetura e compatibilidade
 
-`main.tf`, `versions.tf` and `.terraform.lock.hcl` are byte-for-byte unchanged from the baseline. The original 12 managed resource instances, four subnet CIDRs, two AZs, routing, DNS and public-IP flags are preserved. Tags and implicit dependencies through references are unchanged. AWS-created default VPC objects are not extra Terraform-managed resources.
+`main.tf`, `versions.tf` e `.terraform.lock.hcl` permanecem idênticos, byte a byte, à referência inicial. Foram preservados os 12 recursos gerenciados originais, os quatro CIDRs de subnets, duas AZs, roteamento, DNS e opções de IP público. Tags e dependências implícitas por referências permanecem intactas. Objetos padrão da VPC criados pela AWS não são recursos adicionais gerenciados pelo Terraform.
 
-The new account input is a deliberate interface change. Use the same authorized account as an existing deployment; changing the allowlist to another account does not migrate resources. These edits do not intentionally require replacement, but no real AWS plan was run to assert a no-op against deployed state. Changing VPC/subnet CIDRs or AZs, reordering count-indexed inputs, or migrating resource keys may cause replacement and requires a separate reviewed plan/migration.
+O novo parâmetro de conta é uma mudança intencional de interface da revisão de engenharia. Use a mesma conta autorizada de uma infraestrutura existente; alterar a lista de autorização para outra conta não migra recursos. Essas melhorias não exigem substituição intencional de recursos, mas nenhum plano real na AWS foi executado para comprovar ausência de mudanças sobre um estado provisionado. Alterar CIDRs da VPC ou subnets, AZs, ordem de parâmetros indexados por count ou chaves de recursos pode causar substituições e exige plano ou migração revisados separadamente.
 
-The provider constraint `~> 6.0` remains bounded to major version 6 and the lock selects 6.74.0. Existing `zh` package hashes allow cross-platform verification; Linux amd64 initialization was exercised. Other platforms were not tested. No manual hash changes or provider upgrade occurred.
+A restrição do provider `~> 6.0` permanece limitada à versão principal 6, e o lock seleciona 6.74.0. Os hashes de pacotes `zh` existentes permitem verificação em diferentes plataformas; a inicialização em Linux amd64 foi exercitada. Outras plataformas não foram testadas. Não houve edição manual de hashes nem atualização de provider.
 
-## Previous CI evidence
+## Evidências do CI anterior
 
-[Main-branch run 45296126457](https://github.com/RnN90/aws-saa-labs/actions/runs/45296126457) completed successfully for the baseline. Both check-run annotation endpoints were accessible through GitHub CLI. Discover reported a Node.js 20 warning for checkout v4; Validate reported the same warning for checkout v4 and setup-terraform v3. The annotations state those actions were forced onto Node.js 24. This review updates both action runtimes and pins their releases.
+A [execução 45296126457 da branch main](https://github.com/RnN90/aws-saa-labs/actions/runs/45296126457) concluiu com sucesso para a referência inicial. Os endpoints de annotations dos dois checks puderam ser consultados pela GitHub CLI. O job Discover registrou um aviso de Node.js 20 para checkout v4; o job Validate registrou o mesmo aviso para checkout v4 e setup-terraform v3. As annotations informam que essas actions foram forçadas a executar em Node.js 24. A revisão atualiza os runtimes das duas actions e fixa suas versões.
 
-The connected GitHub fetch tool rejected the workflow-runs collection URL, so GitHub CLI was used for run metadata, annotations and action reference verification. Raw logs were not used as evidence of infrastructure testing.
+A ferramenta conectada de consulta ao GitHub rejeitou a URL da coleção de execuções de workflows; por isso, a GitHub CLI foi utilizada para metadados das execuções, annotations e verificação das referências das actions. Logs brutos não foram usados como evidência de testes de infraestrutura.
 
-## Validation record
+## Registro de validação da revisão inicial
 
-- Terraform 1.15.8: repository-wide `terraform fmt -check -recursive` passed.
-- Direct `terraform init -backend=false -input=false -lockfile=readonly` initially failed because the sandbox could not reach registry.terraform.io.
-- Downloaded the official AWS provider 6.74.0 Linux amd64 package from releases.hashicorp.com. Its SHA-256 matched an existing `zh` entry in the committed lock. Backend-free readonly-lock init passed using a temporary filesystem mirror and temporary CLI configuration under `/tmp`; neither is part of the repository or CI.
-- `terraform validate` passed when invoked directly in the LAB 01 Terraform directory. An earlier sandboxed invocation failed during provider plugin startup; the successful direct invocation resolved that limitation.
-- actionlint 1.7.7: workflow syntax and static checks passed.
-- Seven discovery tests passed: empty input, sorted/deduplicated multiple labs, nested cache/module exclusion, missing lock, missing versions, invalid layout and matrix limit.
-- Markdown code fences, 39 relative documentation links and tracked IAM JSON syntax passed; all 19 LAB 01 sections are present. Official external references were opened successfully; the provider registry page requires JavaScript for its content.
-- Mermaid architecture and four matching subgraphs were checked structurally and manually. No Mermaid renderer is installed; rendered appearance was not verified.
-- Staged diff whitespace check passed. Gitleaks 8.24.3 scanned the staged changes with redaction enabled and reported no leaks. Tracked-path and identifier checks are recorded in the final PR validation summary.
-- Remote CI for this revision is verified after publishing the dedicated branch; the PR is the current source for check status.
+- Terraform 1.15.8: `terraform fmt -check -recursive` aprovado em todo o repositório.
+- A execução direta de `terraform init -backend=false -input=false -lockfile=readonly` falhou inicialmente porque o ambiente isolado não conseguia acessar registry.terraform.io.
+- O pacote oficial do provider AWS 6.74.0 para Linux amd64 foi baixado de releases.hashicorp.com. Seu SHA-256 correspondeu a uma entrada `zh` existente no lock versionado. O init sem backend e com lock somente leitura passou com mirror de sistema de arquivos e configuração CLI temporários em `/tmp`; nenhum deles integra o repositório ou o CI.
+- `terraform validate` passou quando executado diretamente no diretório Terraform do LAB 01. Uma tentativa anterior no ambiente isolado falhou ao iniciar o plugin do provider; a execução direta bem-sucedida resolveu essa limitação.
+- actionlint 1.7.7: sintaxe do workflow e verificações estáticas aprovadas.
+- Sete testes de descoberta aprovados: entrada vazia, múltiplos LABs ordenados e sem duplicação, exclusão de caches e módulos aninhados, ausência de lock, ausência de versions, estrutura inválida e limite da matriz.
+- Cercas de código Markdown, 39 links relativos da documentação e sintaxe JSON IAM versionada aprovados; as 19 seções do LAB 01 estão presentes. As referências externas oficiais foram abertas com sucesso; a página do registry do provider exige JavaScript para exibir seu conteúdo.
+- Arquitetura Mermaid e quatro subgrafos com fechamentos correspondentes verificados estruturalmente e por revisão manual. Não há renderizador Mermaid instalado; a aparência renderizada não foi validada.
+- Verificação de espaços em branco do diff preparado para commit aprovada. O Gitleaks 8.24.3 analisou as alterações preparadas com ocultação de valores sensíveis e não encontrou vazamentos. As verificações de caminhos versionados e identificadores estão registradas no resumo final de validação do PR.
+- O CI remoto da revisão inicial foi aprovado após a publicação da branch dedicada; os resultados estão no PR e nas [execuções de push](https://github.com/RnN90/aws-saa-labs/actions/runs/45298501935) e [Pull Request](https://github.com/RnN90/aws-saa-labs/actions/runs/45298557546), ambas sem annotations.
 
-## Limits and follow-up
+## Limitações e próximos passos
 
-No AWS queries or mutations were performed. Revised configuration was not deployed, and no real plan, connectivity, failover or authorization test was run. Historical execution is attributed to the owner, not recreated evidence. Ignoring files does not secure existing state or erase the original account identifier from prior Git history; no history rewrite was attempted. Account IDs are identifiers, not authentication secrets.
+Não foram realizadas consultas ou alterações na AWS. A configuração revisada não foi provisionada, e nenhum plano real, teste de conectividade, failover ou autorização foi executado. A execução histórica é atribuída ao responsável, sem recriação de evidências. Ignorar arquivos não protege estados existentes nem apaga o identificador original da conta do histórico Git; não houve reescrita de histórico. IDs de conta são identificadores, não segredos de autenticação.
 
-The runner image and downloads are not immutable despite pinned actions and Terraform. Review action/provider upgrades separately. If CI becomes a required branch check, review path-filter behavior for documentation-only PRs before enabling branch protection. No repository administration settings were changed.
+A imagem do runner e os downloads não são imutáveis, mesmo com actions e Terraform fixados. Revise atualizações de actions e providers separadamente. Se o CI passar a ser uma verificação obrigatória da branch, revise o comportamento dos filtros de caminhos para Pull Requests exclusivamente documentais antes de habilitar proteção de branch. Nenhuma configuração administrativa do repositório foi alterada.
 
-For LAB 02 (planned S3 security), define ownership and cleanup first; a bucket does not inherently require LAB 01 networking. Document any actual dependency explicitly. Plan encryption, Block Public Access, ownership controls, least-privilege temporary access and narrowly scoped tests. Review versioning/retention and cleanup costs before enabling features. A VPC endpoint, paid observability, remote state infrastructure or deployment automation requires its own architecture review and authorization; none is introduced here.
+Para o LAB 02 (segurança no S3, ainda planejado), defina primeiro responsabilidade e cleanup; um bucket não depende, por si só, da rede do LAB 01. Documente explicitamente qualquer dependência real. Planeje criptografia, Block Public Access, controles de propriedade, acesso temporário de menor privilégio e testes com escopo restrito. Revise versionamento, retenção e custos de cleanup antes de habilitar funcionalidades. VPC endpoint, observabilidade paga, infraestrutura de estado remoto ou automação de provisionamento exigem revisão de arquitetura e autorização próprias; nenhum desses itens é introduzido aqui.
 
-## References
+## Ajuste complementar de idioma
 
-- [Amazon S3 security best practices](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html)
-- [AWS route tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html)
-- [Terraform provider configuration](https://developer.hashicorp.com/terraform/language/providers/configuration)
-- [Dependency lock file](https://developer.hashicorp.com/terraform/language/files/dependency-lock)
-- [GitHub Actions secure use](https://docs.github.com/en/actions/reference/security/secure-use)
+O português brasileiro (pt-BR) passa a ser o idioma oficial de toda a documentação, incluindo LABs atuais e futuros, relatórios, diagramas, comentários e descrições Terraform. Termos técnicos consolidados e identificadores permanecem em inglês; mensagens de commits seguem Conventional Commits em inglês. A seção “Padrões de idioma e documentação” do AGENTS aplica essa diretriz a todos os agentes.
+
+A tradução preserva os comandos, identificadores, condições de validação, arquitetura, tags e lock file. Mensagens explicativas de validação Terraform foram traduzidas sem alterar seus critérios. Os nomes e a lógica dos workflows permanecem intactos; os scripts Python tiveram somente suas docstrings traduzidas.
+
+O PR #3 foi mesclado em 24/11/2026, às 00:43 UTC, antes deste ajuste complementar. Um PR mesclado não pode ser reaberto. O novo commit permanece na branch `chore/lab01-engineering-review`, sem criação de outro PR ou novo merge; a descrição do PR #3 será atualizada para registrar a entrega e essa limitação. Neste ajuste, passaram novamente Terraform Format e Validate, actionlint, os sete testes de descoberta, 39 links relativos, análise de sintaxe JSON, cercas Markdown, estrutura dos três diagramas Mermaid e Gitleaks nas alterações preparadas e no histórico disponível. A comparação de preservação confirmou condições Terraform, identificadores, comandos documentados, AST funcional Python, workflow, lock e política IAM intactos. Não houve operação na AWS. A renderização Mermaid continua indisponível. O resultado da pipeline do novo commit é informado separadamente na descrição do PR.
+
+## Referências
+
+- [Boas práticas de segurança do Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html)
+- [Route Tables da AWS](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html)
+- [Configuração de providers Terraform](https://developer.hashicorp.com/terraform/language/providers/configuration)
+- [Lock file de dependências](https://developer.hashicorp.com/terraform/language/files/dependency-lock)
+- [Uso seguro do GitHub Actions](https://docs.github.com/en/actions/reference/security/secure-use)
 - [checkout v7.0.1](https://github.com/actions/checkout/releases/tag/v7.0.1)
 - [setup-terraform v4.0.1](https://github.com/hashicorp/setup-terraform/releases/tag/v4.0.1)

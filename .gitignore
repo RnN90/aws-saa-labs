@@ -77,7 +77,7 @@ Thumbs.db
 .agents/
 .codex/
 
-# Terraform crash reports and plan variants
+# Relatórios de falha do Terraform e variantes de planos
 crash.log
 crash.*.log
 *.tfplan.*
