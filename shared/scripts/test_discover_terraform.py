@@ -1,4 +1,4 @@
-"""Guard matrix discovery against missing root requirements and cache contamination."""
+"""Verifica a descoberta da matriz quanto a arquivos obrigatórios ausentes e inclusão indevida de caches."""
 import runpy
 import unittest
 from pathlib import Path
