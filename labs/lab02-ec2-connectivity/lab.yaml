@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "id": "ec2-connectivity",
+  "number": 2,
+  "title": "Amazon EC2 & Network Connectivity",
+  "status": "planned",
+  "platform": "aws",
+  "language": "pt-BR",
+  "difficulty": "L3",
+  "wave": 1,
+  "learning_objectives": [
+    "Validar Data Plane entre subnets e AZs.",
+    "Diagnosticar rotas, Security Groups e Network ACLs com testes positivos e negativos."
+  ],
+  "certifications": [
+    "SAA-C03",
+    "SOA-C03",
+    "ANS-C01"
+  ],
+  "provides": [
+    {
+      "capability": "compute-connectivity",
+      "contract_version": "1"
+    }
+  ],
+  "consumes": [
+    {
+      "capability": "network-foundation",
+      "contract_version": "1",
+      "dependency": "network-required"
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "network-required",
+      "lab": "vpc-networking",
+      "type": "infrastructure-required",
+      "scenario": null
+    }
+  ],
+  "terraform": null,
+  "state": {
+    "strategy": "planned-isolated"
+  },
+  "ownership": {
+    "maintainer": "Mantenedores do repositório; operador autorizado responde pela execução.",
+    "resource_owner": "ec2-connectivity"
+  },
+  "cleanup": {
+    "strategy": "dependency-aware",
+    "approval_required": true,
+    "notes": "Revisar consumidores ativos, conta, região e custos; remover consumidores antes da fundação."
+  },
+  "validation_types": [
+    "static",
+    "data-plane",
+    "security",
+    "cost"
+  ],
+  "publication": {
+    "github": {
+      "status": "planned",
+      "url": null
+    },
+    "article": {
+      "status": "planned",
+      "url": null
+    },
+    "hands_on": {
+      "status": "planned",
+      "url": null
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "sqs-sns",
+  "number": 5,
+  "title": "Amazon SQS & SNS",
+  "status": "planned",
+  "platform": "aws",
+  "language": "pt-BR",
+  "difficulty": "L2",
+  "wave": 1,
+  "learning_objectives": [
+    "Projetar desacoplamento e entrega de mensagens.",
+    "Avaliar repetição, falhas e processamento idempotente."
+  ],
+  "certifications": [
+    "SAA-C03",
+    "DVA-C03",
+    "DOP-C02"
+  ],
+  "provides": [
+    {
+      "capability": "messaging",
+      "contract_version": "1"
+    }
+  ],
+  "consumes": [],
+  "dependencies": [],
+  "terraform": null,
+  "state": {
+    "strategy": "planned-isolated"
+  },
+  "ownership": {
+    "maintainer": "Mantenedores do repositório; operador autorizado responde pela execução.",
+    "resource_owner": "sqs-sns"
+  },
+  "cleanup": {
+    "strategy": "dependency-aware",
+    "approval_required": true,
+    "notes": "Revisar consumidores ativos, conta, região e custos; remover consumidores antes da fundação."
+  },
+  "validation_types": [
+    "static",
+    "data-plane",
+    "security",
+    "cost"
+  ],
+  "publication": {
+    "github": {
+      "status": "planned",
+      "url": null
+    },
+    "article": {
+      "status": "planned",
+      "url": null
+    },
+    "hands_on": {
+      "status": "planned",
+      "url": null
+    }
+  }
+}

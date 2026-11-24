@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "s3-security",
+  "number": 3,
+  "title": "Amazon S3 & Storage Security",
+  "status": "planned",
+  "platform": "aws",
+  "language": "pt-BR",
+  "difficulty": "L2",
+  "wave": 1,
+  "learning_objectives": [
+    "Proteger armazenamento de objetos e avaliar criptografia.",
+    "Planejar retenção, acesso e cleanup de versões."
+  ],
+  "certifications": [
+    "SAA-C03",
+    "SCS-C03",
+    "DEA-C01"
+  ],
+  "provides": [
+    {
+      "capability": "storage-security",
+      "contract_version": "1"
+    }
+  ],
+  "consumes": [],
+  "dependencies": [],
+  "terraform": null,
+  "state": {
+    "strategy": "planned-isolated"
+  },
+  "ownership": {
+    "maintainer": "Mantenedores do repositório; operador autorizado responde pela execução.",
+    "resource_owner": "s3-security"
+  },
+  "cleanup": {
+    "strategy": "dependency-aware",
+    "approval_required": true,
+    "notes": "Revisar consumidores ativos, conta, região e custos; remover consumidores antes da fundação."
+  },
+  "validation_types": [
+    "static",
+    "data-plane",
+    "security",
+    "cost"
+  ],
+  "publication": {
+    "github": {
+      "status": "planned",
+      "url": null
+    },
+    "article": {
+      "status": "planned",
+      "url": null
+    },
+    "hands_on": {
+      "status": "planned",
+      "url": null
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "cloudwatch",
+  "number": 6,
+  "title": "Amazon CloudWatch & Observability",
+  "status": "planned",
+  "platform": "aws",
+  "language": "pt-BR",
+  "difficulty": "L3",
+  "wave": 1,
+  "learning_objectives": [
+    "Definir sinais, alertas e hipóteses de diagnóstico.",
+    "Avaliar retenção e custos da observabilidade."
+  ],
+  "certifications": [
+    "SAA-C03",
+    "SOA-C03",
+    "DOP-C02"
+  ],
+  "provides": [
+    {
+      "capability": "observability",
+      "contract_version": "1"
+    }
+  ],
+  "consumes": [],
+  "dependencies": [],
+  "terraform": null,
+  "state": {
+    "strategy": "planned-isolated"
+  },
+  "ownership": {
+    "maintainer": "Mantenedores do repositório; operador autorizado responde pela execução.",
+    "resource_owner": "cloudwatch"
+  },
+  "cleanup": {
+    "strategy": "dependency-aware",
+    "approval_required": true,
+    "notes": "Revisar consumidores ativos, conta, região e custos; remover consumidores antes da fundação."
+  },
+  "validation_types": [
+    "static",
+    "data-plane",
+    "security",
+    "cost"
+  ],
+  "publication": {
+    "github": {
+      "status": "planned",
+      "url": null
+    },
+    "article": {
+      "status": "planned",
+      "url": null
+    },
+    "hands_on": {
+      "status": "planned",
+      "url": null
+    }
+  }
+}

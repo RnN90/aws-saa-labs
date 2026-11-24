@@ -1,0 +1,354 @@
+{
+  "schema_version": 1,
+  "exam_code": "SAA-C03",
+  "verified_on": "2026-11-24",
+  "translation_note": "Títulos traduzidos para pt-BR; os identificadores e fontes remetem aos objetivos oficiais. Níveis L1–L5 são internos.",
+  "official_tasks": [
+    {
+      "id": "1.1",
+      "domain": "1",
+      "domain_title_pt_br": "Projetar arquiteturas seguras",
+      "objective_pt_br": "Projetar acesso seguro a recursos AWS",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain1.html"
+    },
+    {
+      "id": "1.2",
+      "domain": "1",
+      "domain_title_pt_br": "Projetar arquiteturas seguras",
+      "objective_pt_br": "Projetar workloads e aplicações seguros",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain1.html"
+    },
+    {
+      "id": "1.3",
+      "domain": "1",
+      "domain_title_pt_br": "Projetar arquiteturas seguras",
+      "objective_pt_br": "Determinar controles adequados de segurança de dados",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain1.html"
+    },
+    {
+      "id": "2.1",
+      "domain": "2",
+      "domain_title_pt_br": "Projetar arquiteturas resilientes",
+      "objective_pt_br": "Projetar arquiteturas escaláveis e fracamente acopladas",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain2.html"
+    },
+    {
+      "id": "2.2",
+      "domain": "2",
+      "domain_title_pt_br": "Projetar arquiteturas resilientes",
+      "objective_pt_br": "Projetar arquiteturas de alta disponibilidade e tolerantes a falhas",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain2.html"
+    },
+    {
+      "id": "3.1",
+      "domain": "3",
+      "domain_title_pt_br": "Projetar arquiteturas de alto desempenho",
+      "objective_pt_br": "Determinar soluções de armazenamento escaláveis e de alto desempenho",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain3.html"
+    },
+    {
+      "id": "3.2",
+      "domain": "3",
+      "domain_title_pt_br": "Projetar arquiteturas de alto desempenho",
+      "objective_pt_br": "Projetar soluções de computação elásticas e de alto desempenho",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain3.html"
+    },
+    {
+      "id": "3.3",
+      "domain": "3",
+      "domain_title_pt_br": "Projetar arquiteturas de alto desempenho",
+      "objective_pt_br": "Determinar soluções de bancos de dados de alto desempenho",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain3.html"
+    },
+    {
+      "id": "3.4",
+      "domain": "3",
+      "domain_title_pt_br": "Projetar arquiteturas de alto desempenho",
+      "objective_pt_br": "Determinar arquiteturas de rede escaláveis e de alto desempenho",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain3.html"
+    },
+    {
+      "id": "3.5",
+      "domain": "3",
+      "domain_title_pt_br": "Projetar arquiteturas de alto desempenho",
+      "objective_pt_br": "Determinar soluções de ingestão e transformação de dados de alto desempenho",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain3.html"
+    },
+    {
+      "id": "4.1",
+      "domain": "4",
+      "domain_title_pt_br": "Projetar arquiteturas com custos otimizados",
+      "objective_pt_br": "Projetar soluções de armazenamento com custos otimizados",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain4.html"
+    },
+    {
+      "id": "4.2",
+      "domain": "4",
+      "domain_title_pt_br": "Projetar arquiteturas com custos otimizados",
+      "objective_pt_br": "Projetar soluções de computação com custos otimizados",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain4.html"
+    },
+    {
+      "id": "4.3",
+      "domain": "4",
+      "domain_title_pt_br": "Projetar arquiteturas com custos otimizados",
+      "objective_pt_br": "Projetar soluções de bancos de dados com custos otimizados",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain4.html"
+    },
+    {
+      "id": "4.4",
+      "domain": "4",
+      "domain_title_pt_br": "Projetar arquiteturas com custos otimizados",
+      "objective_pt_br": "Projetar arquiteturas de rede com custos otimizados",
+      "source": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03-domain4.html"
+    }
+  ],
+  "coverage": [
+    {
+      "task": "1.1",
+      "competency": "Aplicar e justificar: projetar acesso seguro a recursos aws.",
+      "level": "L2",
+      "labs": [
+        "identity-governance"
+      ],
+      "articles": [],
+      "modes": {
+        "theoretical": "partial",
+        "practical": "partial",
+        "architectural": "partial"
+      },
+      "evidence": [
+        "labs/lab00-identity-governance/docs/validation.md"
+      ],
+      "evidence_quality": "historical-attestation-and-documentation",
+      "gap": "Evidências limitadas ao recorte documentado; LAB 01 validou Control Plane, sem Data Plane, desempenho ou failover. Sem cobertura integral do objetivo."
+    },
+    {
+      "task": "1.2",
+      "competency": "Aplicar e justificar: projetar workloads e aplicações seguros.",
+      "level": "L2",
+      "labs": [
+        "vpc-networking",
+        "ec2-connectivity"
+      ],
+      "articles": [],
+      "modes": {
+        "theoretical": "partial",
+        "practical": "partial",
+        "architectural": "partial"
+      },
+      "evidence": [
+        "labs/lab01-vpc-networking/README.md"
+      ],
+      "evidence_quality": "historical-attestation-and-documentation",
+      "gap": "Evidências limitadas ao recorte documentado; LAB 01 validou Control Plane, sem Data Plane, desempenho ou failover. Sem cobertura integral do objetivo."
+    },
+    {
+      "task": "1.3",
+      "competency": "Aplicar e justificar: determinar controles adequados de segurança de dados.",
+      "level": "L3",
+      "labs": [
+        "s3-security"
+      ],
+      "articles": [],
+      "modes": {
+        "theoretical": "planned",
+        "practical": "planned",
+        "architectural": "planned"
+      },
+      "evidence": [],
+      "evidence_quality": "none",
+      "gap": "Implementação e evidências pendentes; identificar novo LAB somente após análise de reutilização."
+    },
+    {
+      "task": "2.1",
+      "competency": "Aplicar e justificar: projetar arquiteturas escaláveis e fracamente acopladas.",
+      "level": "L3",
+      "labs": [
+        "lambda-api-gateway",
+        "sqs-sns"
+      ],
+      "articles": [],
+      "modes": {
+        "theoretical": "planned",
+        "practical": "planned",
+        "architectural": "planned"
+      },
+      "evidence": [],
+      "evidence_quality": "none",
+      "gap": "Implementação e evidências pendentes; identificar novo LAB somente após análise de reutilização."
+    },
+    {
+      "task": "2.2",
+      "competency": "Aplicar e justificar: projetar arquiteturas de alta disponibilidade e tolerantes a falhas.",
+      "level": "L2",
+      "labs": [
+        "vpc-networking",
+        "ec2-connectivity"
+      ],
+      "articles": [],
+      "modes": {
+        "theoretical": "partial",
+        "practical": "planned",
+        "architectural": "partial"
+      },
+      "evidence": [
+        "labs/lab01-vpc-networking/README.md"
+      ],
+      "evidence_quality": "historical-attestation-and-documentation",
+      "gap": "Evidências limitadas ao recorte documentado; LAB 01 validou Control Plane, sem Data Plane, desempenho ou failover. Sem cobertura integral do objetivo."
+    },
+    {
+      "task": "3.1",
+      "competency": "Aplicar e justificar: determinar soluções de armazenamento escaláveis e de alto desempenho.",
+      "level": "L3",
+      "labs": [
+        "s3-security"
+      ],
+      "articles": [],
+      "modes": {
+        "theoretical": "planned",
+        "practical": "planned",
+        "architectural": "planned"
+      },
+      "evidence": [],
+      "evidence_quality": "none",
+      "gap": "Implementação e evidências pendentes; identificar novo LAB somente após análise de reutilização."
+    },
+    {
+      "task": "3.2",
+      "competency": "Aplicar e justificar: projetar soluções de computação elásticas e de alto desempenho.",
+      "level": "L3",
+      "labs": [
+        "ec2-connectivity"
+      ],
+      "articles": [],
+      "modes": {
+        "theoretical": "planned",
+        "practical": "planned",
+        "architectural": "planned"
+      },
+      "evidence": [],
+      "evidence_quality": "none",
+      "gap": "Implementação e evidências pendentes; identificar novo LAB somente após análise de reutilização."
+    },
+    {
+      "task": "3.3",
+      "competency": "Aplicar e justificar: determinar soluções de bancos de dados de alto desempenho.",
+      "level": "L3",
+      "labs": [],
+      "articles": [],
+      "modes": {
+        "theoretical": "not-mapped",
+        "practical": "not-mapped",
+        "architectural": "not-mapped"
+      },
+      "evidence": [],
+      "evidence_quality": "none",
+      "gap": "Implementação e evidências pendentes; identificar novo LAB somente após análise de reutilização."
+    },
+    {
+      "task": "3.4",
+      "competency": "Aplicar e justificar: determinar arquiteturas de rede escaláveis e de alto desempenho.",
+      "level": "L2",
+      "labs": [
+        "vpc-networking",
+        "ec2-connectivity"
+      ],
+      "articles": [],
+      "modes": {
+        "theoretical": "partial",
+        "practical": "partial",
+        "architectural": "partial"
+      },
+      "evidence": [
+        "labs/lab01-vpc-networking/README.md"
+      ],
+      "evidence_quality": "historical-attestation-and-documentation",
+      "gap": "Evidências limitadas ao recorte documentado; LAB 01 validou Control Plane, sem Data Plane, desempenho ou failover. Sem cobertura integral do objetivo."
+    },
+    {
+      "task": "3.5",
+      "competency": "Aplicar e justificar: determinar soluções de ingestão e transformação de dados de alto desempenho.",
+      "level": "L3",
+      "labs": [],
+      "articles": [],
+      "modes": {
+        "theoretical": "not-mapped",
+        "practical": "not-mapped",
+        "architectural": "not-mapped"
+      },
+      "evidence": [],
+      "evidence_quality": "none",
+      "gap": "Implementação e evidências pendentes; identificar novo LAB somente após análise de reutilização."
+    },
+    {
+      "task": "4.1",
+      "competency": "Aplicar e justificar: projetar soluções de armazenamento com custos otimizados.",
+      "level": "L3",
+      "labs": [
+        "s3-security"
+      ],
+      "articles": [],
+      "modes": {
+        "theoretical": "planned",
+        "practical": "planned",
+        "architectural": "planned"
+      },
+      "evidence": [],
+      "evidence_quality": "none",
+      "gap": "Implementação e evidências pendentes; identificar novo LAB somente após análise de reutilização."
+    },
+    {
+      "task": "4.2",
+      "competency": "Aplicar e justificar: projetar soluções de computação com custos otimizados.",
+      "level": "L3",
+      "labs": [
+        "ec2-connectivity"
+      ],
+      "articles": [],
+      "modes": {
+        "theoretical": "planned",
+        "practical": "planned",
+        "architectural": "planned"
+      },
+      "evidence": [],
+      "evidence_quality": "none",
+      "gap": "Implementação e evidências pendentes; identificar novo LAB somente após análise de reutilização."
+    },
+    {
+      "task": "4.3",
+      "competency": "Aplicar e justificar: projetar soluções de bancos de dados com custos otimizados.",
+      "level": "L3",
+      "labs": [],
+      "articles": [],
+      "modes": {
+        "theoretical": "not-mapped",
+        "practical": "not-mapped",
+        "architectural": "not-mapped"
+      },
+      "evidence": [],
+      "evidence_quality": "none",
+      "gap": "Implementação e evidências pendentes; identificar novo LAB somente após análise de reutilização."
+    },
+    {
+      "task": "4.4",
+      "competency": "Aplicar e justificar: projetar arquiteturas de rede com custos otimizados.",
+      "level": "L2",
+      "labs": [
+        "vpc-networking"
+      ],
+      "articles": [],
+      "modes": {
+        "theoretical": "partial",
+        "practical": "planned",
+        "architectural": "partial"
+      },
+      "evidence": [
+        "labs/lab01-vpc-networking/README.md"
+      ],
+      "evidence_quality": "historical-attestation-and-documentation",
+      "gap": "Evidências limitadas ao recorte documentado; LAB 01 validou Control Plane, sem Data Plane, desempenho ou failover. Sem cobertura integral do objetivo."
+    }
+  ]
+}

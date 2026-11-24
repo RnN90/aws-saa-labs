@@ -1,6 +1,6 @@
-# AWS SAA-C03 — Laboratórios práticos
+# AWS Certification & Engineering Program
 
-Programa de estudos com laboratórios práticos para a certificação **AWS Certified Solutions Architect – Associate (SAA-C03)**. O objetivo é relacionar decisões de arquitetura à operação dos serviços AWS, com atenção a segurança, resiliência, desempenho e custos.
+Programa de aprendizado e engenharia originado na **AWS Certified Solutions Architect – Associate (SAA-C03)** e ampliado para competências de todas as trilhas AWS. Integra Cloud Architecture, Infrastructure as Code, Platform Engineering, DevSecOps, SRE, Security, FinOps e Knowledge Engineering, com decisões fundamentadas e evolução incremental. O repositório mantém o nome `aws-saa-labs`; uma possível mudança futura é apenas proposta em ADR.
 
 Este repositório combina arquitetura AWS, Terraform, CI/CD, segurança, governança, FinOps e documentação técnica. Os LABs 00 e 01 foram executados e validados pelo responsável; a infraestrutura do LAB 01 foi destruída após a validação. O repositório contém código provisionável, mas o CI executa somente verificações estáticas, sem acesso à AWS.
 
@@ -12,7 +12,7 @@ Cada LAB deve identificar seus pré-requisitos, recursos herdados, recursos novo
 
 O cleanup deve preservar recursos necessários aos LABs posteriores. Recursos temporários devem ser removidos quando deixarem de ser necessários, após revisão das dependências e aprovação humana, para controlar custos. Recursos legados, treinamentos externos, incidentes históricos e configurações particulares que não pertençam à plataforma ficam fora da documentação. As regras completas estão em [AGENTS.md](AGENTS.md).
 
-O LAB 00 fornece a base de identidade e governança. O LAB 01 implementa a fundação de rede em duas AZs; sua reutilização depende de novo provisionamento autorizado. Os LABs 02–05 permanecem planejados.
+O LAB 00 fornece a base de identidade e governança. O LAB 01 implementa a fundação de rede em duas AZs; sua reutilização depende de novo provisionamento autorizado. Os LABs 02–06 permanecem planejados. LAB 02 será o primeiro consumidor da rede do LAB 01; sua infraestrutura não foi implementada.
 
 ## Objetivos
 
@@ -37,10 +37,11 @@ Não use a identidade operacional do LAB 00 para administrar Organizations ou IA
 | --- | --- | --- |
 | [LAB 00](labs/lab00-identity-governance/README.md) | Organizations, IAM Identity Center, SSO, MFA e governança | Executado; documentado a partir do histórico confirmado |
 | [LAB 01](labs/lab01-vpc-networking/README.md) | VPC e networking com Terraform | Executado, validado e destruído; sem testes entre workloads |
-| LAB 02 — `lab02-s3-security` | Segurança no Amazon S3 | Planejado |
-| LAB 03 — `lab03-lambda-api-gateway` | AWS Lambda e Amazon API Gateway | Planejado |
-| LAB 04 — `lab04-sqs-sns` | Amazon SQS e Amazon SNS | Planejado |
-| LAB 05 — `lab05-cloudwatch` | Amazon CloudWatch | Planejado |
+| [LAB 02](labs/lab02-ec2-connectivity/README.md) | Amazon EC2 e conectividade de rede | Planejado; sem Terraform ou testes executados |
+| [LAB 03](labs/lab03-s3-security/README.md) | Amazon S3 e segurança de armazenamento | Planejado |
+| [LAB 04](labs/lab04-lambda-api-gateway/README.md) | AWS Lambda e Amazon API Gateway | Planejado |
+| [LAB 05](labs/lab05-sqs-sns/README.md) | Amazon SQS e Amazon SNS | Planejado |
+| [LAB 06](labs/lab06-cloudwatch/README.md) | Amazon CloudWatch e observabilidade | Planejado |
 
 Os LABs implementados ficam em `labs/labNN-tema/`, com README e subdiretórios conforme a necessidade. O LAB 01 mantém seu diretório raiz Terraform em `terraform/`; `shared/scripts/` contém a descoberta de diretórios raiz e `.github/workflows/` contém o [Terraform CI](.github/workflows/terraform-ci.yml). Não criamos diretórios de preenchimento para LABs futuros.
 
@@ -64,3 +65,15 @@ As validações de identidade e acesso **não comprovam ausência de cobranças 
 O CI descobre os diretórios raiz Terraform versionados, executa `fmt`, `init -backend=false -lockfile=readonly` e `validate` em matriz, sem credenciais AWS e sem provisionamento. Actions são fixadas por SHA; Terraform permanece na versão 1.15.8 e o provider AWS está travado em 6.74.0. Consulte os procedimentos em [CONTRIBUTING.md](CONTRIBUTING.md) e as decisões e limitações da [revisão de engenharia](docs/lab01-engineering-review.md).
 
 Para reproduzir o LAB 01, use seu próprio perfil temporário e configure o ID da conta autorizada apenas em arquivo local ignorado. Consulte os pré-requisitos e as instruções completas no README do LAB.
+
+## Engineering Foundation v2
+
+- [Roadmap por dez ondas](docs/roadmap/README.md): competências L1–L5 internas, reutilizadas entre certificações; sequência inicial LAB 00–06 preservada.
+- [Catálogo e manifestos](catalog/README.md): sete manifestos `lab.yaml`, schema v1, capacidades, ownership e status explícito de implementação/publicação.
+- [Dependências e lifecycle](docs/architecture/dependencies.md): DAG, tipos de dependência, contratos, estados separados, retenção e cleanup inverso. Numeração não cria dependência.
+- [Certificações e matriz SAA-C03](certifications/README.md): códigos/status verificados em 24/11/2026, objetivos oficiais e cobertura conservadora por evidências. Não há declaração de cobertura integral de exames.
+- [Quality Gates](docs/standards/quality-gates.md), [aprendizado e publicação](docs/standards/learning-publication.md), [FinOps](docs/standards/finops-security.md) e [ADRs](docs/adr/README.md): critérios mensuráveis, três entregáveis por LAB e revisão humana.
+- [Evolução Terraform/DevOps](docs/architecture/terraform-evolution.md) e [labctl proposto](docs/architecture/labctl.md): adoção por necessidade concreta; nenhum deploy automático, backend remoto ou orquestrador AWS implementado aqui.
+- [Auditoria e relatório desta fundação](docs/engineering-foundation-v2-review.md): decisões, validações, limites e dívidas.
+
+Os manifestos descrevem capacidades e planejamento, não inventário de recursos ativos. Conta dedicada é proposta/recomendação para workloads; o histórico de governança do LAB 00 permanece explícito. O portal e o nome do repositório não são alterados nesta atividade.

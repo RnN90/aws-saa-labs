@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "identity-governance",
+  "number": 0,
+  "title": "AWS Identity & Governance",
+  "status": "implemented",
+  "platform": "aws",
+  "language": "pt-BR",
+  "difficulty": "L1",
+  "wave": 1,
+  "learning_objectives": [
+    "Autenticar por federação e MFA.",
+    "Distinguir governança, operação e menor privilégio."
+  ],
+  "certifications": [
+    "SAA-C03",
+    "CLF-C02",
+    "SCS-C03"
+  ],
+  "provides": [
+    {
+      "capability": "identity-foundation",
+      "contract_version": "1"
+    }
+  ],
+  "consumes": [],
+  "dependencies": [],
+  "terraform": null,
+  "state": {
+    "strategy": "none"
+  },
+  "ownership": {
+    "maintainer": "Mantenedores do repositório; operador autorizado responde pela execução.",
+    "resource_owner": "identity-governance"
+  },
+  "cleanup": {
+    "strategy": "preserve-governance",
+    "approval_required": true,
+    "notes": "Preservar identidade e acessos compartilhados."
+  },
+  "validation_types": [
+    "static",
+    "control-plane"
+  ],
+  "publication": {
+    "github": {
+      "status": "documented",
+      "url": null
+    },
+    "article": {
+      "status": "planned",
+      "url": null
+    },
+    "hands_on": {
+      "status": "planned",
+      "url": null
+    }
+  }
+}

@@ -213,9 +213,19 @@ Esse escopo não comprova ausência de cobranças em toda a conta. Utilize a vis
 
 ## 17. Instruções de cleanup
 
+### Modos de execução
+
+**Independente:** provisionar sob autorização, validar o Control Plane e destruir os recursos após aprovação. O histórico original permanece: 12 recursos provisionados, validados pela AWS CLI/Terraform State e destruídos; nenhum teste de Data Plane foi realizado.
+
+**Sequencial:** provisionar e validar a rede; registrar retenção temporária com responsável, prazo, conta/região, orçamento e consumidores; executar o [LAB 02 planejado](../lab02-ec2-connectivity/README.md) com estado separado e contrato `network-foundation` v1; remover primeiro seus recursos e outros consumidores ativos e somente depois remover a rede. Antes da implementação do consumidor, não há teste EC2 ou integração funcional comprovados.
+
+A retenção exige avaliação prévia e periódica de custos e cleanup aprovado; não implica manter a fundação permanentemente ativa. Consultar [contratos, ownership e ordem de cleanup](../../docs/architecture/dependencies.md) e o [padrão FinOps](../../docs/standards/finops-security.md). A transferência inicial de outputs será manual e privada por allowlist, sem compartilhar state completo. Não alterar os outputs existentes nem atribuir os 12 recursos ao estado do consumidor.
+
+### Procedimento de remoção após revisão de dependências
+
 A infraestrutura original já foi destruída. Não execute cleanup em outra conta ou sobre recursos alheios ao laboratório. Após qualquer provisionamento futuro, o operador responsável pelo Terraform State responde pela remoção ou retenção documentada dos recursos.
 
-Antes do cleanup, confirme a conta, região, estado exato e consumidores dependentes. Nenhum LAB posterior está documentado como consumidor atualmente. Se LABs futuros reutilizarem esta rede, registre-os e remova suas dependências primeiro; não destrua fundações compartilhadas ainda em uso. Reutilização é uma opção, não evidência de que recursos existem atualmente.
+Antes do cleanup, confirme a conta, região, estado exato e consumidores dependentes. O LAB 02 é o primeiro consumidor **planejado** de `network-foundation`; não há consumidor ativo confirmado por esta entrega. Se LABs futuros reutilizarem esta rede, registre-os e remova suas dependências primeiro; não destrua fundações compartilhadas ainda em uso. Reutilização é uma opção, não evidência de que recursos existem atualmente.
 
 Para um cleanup explicitamente autorizado, usando o mesmo diretório raiz e estado:
 

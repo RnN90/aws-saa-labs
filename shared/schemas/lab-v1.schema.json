@@ -1,0 +1,350 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Manifesto de laboratório v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "number": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "implemented",
+        "planned",
+        "retired"
+      ]
+    },
+    "platform": {
+      "const": "aws"
+    },
+    "language": {
+      "const": "pt-BR"
+    },
+    "difficulty": {
+      "enum": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    "wave": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "learning_objectives": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z]{3}-C[0-9]{2}$"
+      },
+      "uniqueItems": true
+    },
+    "provides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "capability": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          },
+          "contract_version": {
+            "const": "1"
+          }
+        },
+        "required": [
+          "capability",
+          "contract_version"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "consumes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "capability": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          },
+          "contract_version": {
+            "const": "1"
+          },
+          "dependency": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          }
+        },
+        "required": [
+          "capability",
+          "contract_version",
+          "dependency"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          },
+          "lab": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          },
+          "type": {
+            "enum": [
+              "educational",
+              "operational",
+              "infrastructure-required",
+              "infrastructure-optional",
+              "functional-integration"
+            ]
+          },
+          "scenario": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "lab",
+          "type",
+          "scenario"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "terraform": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "strategy": {
+          "enum": [
+            "none",
+            "local",
+            "planned-isolated"
+          ]
+        }
+      },
+      "required": [
+        "strategy"
+      ]
+    },
+    "ownership": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "maintainer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resource_owner": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+        }
+      },
+      "required": [
+        "maintainer",
+        "resource_owner"
+      ]
+    },
+    "cleanup": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "strategy": {
+          "enum": [
+            "preserve-governance",
+            "dependency-aware"
+          ]
+        },
+        "approval_required": {
+          "const": true
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "strategy",
+        "approval_required",
+        "notes"
+      ]
+    },
+    "validation_types": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "static",
+          "control-plane",
+          "data-plane",
+          "security",
+          "cost"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "github": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "enum": [
+                "planned",
+                "documented",
+                "published"
+              ]
+            },
+            "url": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "status",
+            "url"
+          ]
+        },
+        "article": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "enum": [
+                "planned",
+                "documented",
+                "published"
+              ]
+            },
+            "url": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "status",
+            "url"
+          ]
+        },
+        "hands_on": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "enum": [
+                "planned",
+                "documented",
+                "published"
+              ]
+            },
+            "url": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "status",
+            "url"
+          ]
+        }
+      },
+      "required": [
+        "github",
+        "article",
+        "hands_on"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "number",
+    "title",
+    "status",
+    "platform",
+    "language",
+    "difficulty",
+    "wave",
+    "learning_objectives",
+    "certifications",
+    "provides",
+    "consumes",
+    "dependencies",
+    "terraform",
+    "state",
+    "ownership",
+    "cleanup",
+    "validation_types",
+    "publication"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "planned"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "terraform": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}
