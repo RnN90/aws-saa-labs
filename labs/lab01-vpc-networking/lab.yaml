@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "id": "vpc-networking",
+  "number": 1,
+  "title": "Amazon VPC & Networking Fundamentals",
+  "status": "implemented",
+  "platform": "aws",
+  "language": "pt-BR",
+  "difficulty": "L2",
+  "wave": 1,
+  "learning_objectives": [
+    "Interpretar endereçamento e Route Tables em duas AZs.",
+    "Validar o Control Plane e gerenciar o ciclo de vida de 12 recursos."
+  ],
+  "certifications": [
+    "SAA-C03",
+    "CLF-C02",
+    "SOA-C03",
+    "ANS-C01"
+  ],
+  "provides": [
+    {
+      "capability": "network-foundation",
+      "contract_version": "1"
+    }
+  ],
+  "consumes": [],
+  "dependencies": [
+    {
+      "id": "identity-study",
+      "lab": "identity-governance",
+      "type": "educational",
+      "scenario": null
+    }
+  ],
+  "terraform": "terraform",
+  "state": {
+    "strategy": "local"
+  },
+  "ownership": {
+    "maintainer": "Mantenedores do repositório; operador autorizado responde pela execução.",
+    "resource_owner": "vpc-networking"
+  },
+  "cleanup": {
+    "strategy": "dependency-aware",
+    "approval_required": true,
+    "notes": "Revisar consumidores ativos, conta, região e custos; remover consumidores antes da fundação."
+  },
+  "validation_types": [
+    "static",
+    "control-plane"
+  ],
+  "publication": {
+    "github": {
+      "status": "documented",
+      "url": null
+    },
+    "article": {
+      "status": "planned",
+      "url": null
+    },
+    "hands_on": {
+      "status": "planned",
+      "url": null
+    }
+  }
+}

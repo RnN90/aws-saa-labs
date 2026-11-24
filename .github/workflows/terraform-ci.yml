@@ -11,6 +11,16 @@ on:
       - 'labs/**/terraform/**'
       - '.github/workflows/terraform-ci.yml'
       - 'shared/scripts/**'
+      - 'shared/schemas/**'
+      - 'shared/requirements-catalog.txt'
+      - 'labs/**/lab.yaml'
+      - 'labs/**/README.md'
+      - 'catalog/**'
+      - 'certifications/**'
+      - 'docs/**'
+      - 'README.md'
+      - 'AGENTS.md'
+      - 'CONTRIBUTING.md'
   pull_request:
     branches:
       - main
@@ -18,6 +28,16 @@ on:
       - 'labs/**/terraform/**'
       - '.github/workflows/terraform-ci.yml'
       - 'shared/scripts/**'
+      - 'shared/schemas/**'
+      - 'shared/requirements-catalog.txt'
+      - 'labs/**/lab.yaml'
+      - 'labs/**/README.md'
+      - 'catalog/**'
+      - 'certifications/**'
+      - 'docs/**'
+      - 'README.md'
+      - 'AGENTS.md'
+      - 'CONTRIBUTING.md'
   workflow_dispatch:
 
 permissions:
@@ -43,6 +63,12 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - name: Install catalog validation dependencies
+        run: |
+          python3 -m pip install --disable-pip-version-check --no-cache-dir --only-binary=:all: --require-hashes --target "$RUNNER_TEMP/catalog-deps" -r shared/requirements-catalog.txt
+          echo "PYTHONPATH=$RUNNER_TEMP/catalog-deps" >> "$GITHUB_ENV"
+      - name: Validate catalog and documentation
+        run: python3 shared/scripts/validate_catalog.py
       - name: Discover Terraform directories
         id: labs
         shell: bash

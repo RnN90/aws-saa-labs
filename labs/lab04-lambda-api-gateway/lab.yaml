@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "id": "lambda-api-gateway",
+  "number": 4,
+  "title": "AWS Lambda & API Gateway",
+  "status": "planned",
+  "platform": "aws",
+  "language": "pt-BR",
+  "difficulty": "L2",
+  "wave": 1,
+  "learning_objectives": [
+    "Projetar uma API serverless com autorização e validação.",
+    "Comparar integração pública e cenário privado opcional."
+  ],
+  "certifications": [
+    "SAA-C03",
+    "DVA-C03"
+  ],
+  "provides": [
+    {
+      "capability": "serverless-api",
+      "contract_version": "1"
+    }
+  ],
+  "consumes": [
+    {
+      "capability": "network-foundation",
+      "contract_version": "1",
+      "dependency": "private-integration"
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "private-integration",
+      "lab": "vpc-networking",
+      "type": "infrastructure-optional",
+      "scenario": "Somente integração da função com recursos privados na VPC; fora do cenário básico."
+    }
+  ],
+  "terraform": null,
+  "state": {
+    "strategy": "planned-isolated"
+  },
+  "ownership": {
+    "maintainer": "Mantenedores do repositório; operador autorizado responde pela execução.",
+    "resource_owner": "lambda-api-gateway"
+  },
+  "cleanup": {
+    "strategy": "dependency-aware",
+    "approval_required": true,
+    "notes": "Revisar consumidores ativos, conta, região e custos; remover consumidores antes da fundação."
+  },
+  "validation_types": [
+    "static",
+    "data-plane",
+    "security",
+    "cost"
+  ],
+  "publication": {
+    "github": {
+      "status": "planned",
+      "url": null
+    },
+    "article": {
+      "status": "planned",
+      "url": null
+    },
+    "hands_on": {
+      "status": "planned",
+      "url": null
+    }
+  }
+}

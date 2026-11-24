@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "capabilities": {
+    "identity-foundation": {
+      "description": "Autenticar por federação e MFA."
+    },
+    "network-foundation": {
+      "description": "Interpretar endereçamento e Route Tables em duas AZs."
+    },
+    "compute-connectivity": {
+      "description": "Validar Data Plane entre subnets e AZs."
+    },
+    "storage-security": {
+      "description": "Proteger armazenamento de objetos e avaliar criptografia."
+    },
+    "serverless-api": {
+      "description": "Projetar uma API serverless com autorização e validação."
+    },
+    "messaging": {
+      "description": "Projetar desacoplamento e entrega de mensagens."
+    },
+    "observability": {
+      "description": "Definir sinais, alertas e hipóteses de diagnóstico."
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-11-24",
+  "certifications": [
+    {
+      "code": "CLF-C02",
+      "track": "Foundational",
+      "title": "AWS Certified Cloud Practitioner",
+      "status": "active",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/cloud-practitioner-02/cloud-practitioner-02.html",
+      "notes": "Guia e página da certificação disponíveis.",
+      "mapping_status": "not-mapped"
+    },
+    {
+      "code": "AIF-C01",
+      "track": "Foundational",
+      "title": "AWS Certified AI Practitioner",
+      "status": "active",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/ai-practitioner-01/ai-practitioner-01.html",
+      "notes": "Guia e página da certificação disponíveis.",
+      "mapping_status": "not-mapped"
+    },
+    {
+      "code": "SAA-C03",
+      "track": "Associate",
+      "title": "AWS Certified Solutions Architect – Associate",
+      "status": "active",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-associate-03/solutions-architect-associate-03.html",
+      "notes": "Prioridade do mapeamento inicial; não há declaração de cobertura integral.",
+      "mapping_status": "partial"
+    },
+    {
+      "code": "DVA-C03",
+      "track": "Associate",
+      "title": "AWS Certified Developer – Associate",
+      "status": "transition",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/developer-associate-03/developer-associate-03.html",
+      "notes": "Guia confirma DVA-C03 e inscrições desde 27/10/2026; último dia de DVA-C02: 30/11/2026. Disponibilidade de aplicação por idioma deve ser reconferida.",
+      "mapping_status": "not-mapped"
+    },
+    {
+      "code": "SOA-C03",
+      "track": "Associate",
+      "title": "AWS Certified CloudOps Engineer – Associate",
+      "status": "active",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/sysops-administrator-associate-03/sysops-administrator-associate-03.html",
+      "notes": "Novo nome de SysOps Administrator para SOA-C03. Página informa retirada dos idiomas coreano e chinês simplificado após 19/11/2026; não confundir com aposentadoria global.",
+      "mapping_status": "not-mapped"
+    },
+    {
+      "code": "DEA-C01",
+      "track": "Associate",
+      "title": "AWS Certified Data Engineer – Associate",
+      "status": "active",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/data-engineer-associate-01/data-engineer-associate-01.html",
+      "notes": "Guia e página da certificação disponíveis.",
+      "mapping_status": "not-mapped"
+    },
+    {
+      "code": "MLA-C02",
+      "track": "Associate",
+      "title": "AWS Certified Machine Learning Engineer – Associate",
+      "status": "beta",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/machine-learning-engineer-associate-02/machine-learning-engineer-associate-02.html",
+      "notes": "Guia confirma MLA-C02. Página apresenta beta em inglês; MLA-C01 encerrou em inglês em 28/09/2026 e permanece em outros idiomas até disponibilidade geral. A tabela da página contém ME1-C02, inconsistente com título e guia; prevalece MLA-C02, sujeito a reconferência.",
+      "mapping_status": "not-mapped"
+    },
+    {
+      "code": "SAP-C03",
+      "track": "Professional",
+      "title": "AWS Certified Solutions Architect – Professional",
+      "status": "availability-pending",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/solutions-architect-professional-03/solutions-architect-professional-03.html",
+      "notes": "Código e guia SAP-C03 confirmados; página comercial não confirmou janela de aplicação ou retirada de SAP-C02 nesta consulta. Não inferir disponibilidade geral apenas do guia.",
+      "mapping_status": "not-mapped"
+    },
+    {
+      "code": "DOP-C02",
+      "track": "Professional",
+      "title": "AWS Certified DevOps Engineer – Professional",
+      "status": "guide-confirmed",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/devops-engineer-professional-02/devops-engineer-professional-02.html",
+      "notes": "Guia disponível; janela de aplicação por idioma não foi verificada individualmente.",
+      "mapping_status": "not-mapped"
+    },
+    {
+      "code": "AIP-C01",
+      "track": "Professional",
+      "title": "AWS Certified Generative AI Developer – Professional",
+      "status": "active",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/ai-professional-01/ai-professional-01.html",
+      "notes": "Guia e página da certificação disponíveis.",
+      "mapping_status": "not-mapped"
+    },
+    {
+      "code": "SCS-C03",
+      "track": "Specialty",
+      "title": "AWS Certified Security – Specialty",
+      "status": "guide-confirmed",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/security-specialty-03/security-specialty-03.html",
+      "notes": "Guia SCS-C03 e página da certificação disponíveis; disponibilidade por idioma deve ser reconferida antes da inscrição.",
+      "mapping_status": "not-mapped"
+    },
+    {
+      "code": "ANS-C01",
+      "track": "Specialty",
+      "title": "AWS Certified Advanced Networking – Specialty",
+      "status": "retiring",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/advanced-networking-specialty-01/advanced-networking-specialty-01.html",
+      "notes": "Página oficial anuncia último dia em 31/12/2026. Competências de redes empresariais permanecem no programa após essa data.",
+      "mapping_status": "not-mapped"
+    },
+    {
+      "code": "AIB-C01",
+      "track": "Business",
+      "title": "AWS Certified AI Business Strategist",
+      "status": "beta",
+      "guide_status": "confirmed",
+      "guide": "https://docs.aws.amazon.com/aws-certification/latest/ai-business-strategist-01/ai-business-strategist-01.html",
+      "notes": "Guia confirma AIB-C01; página oficial anuncia beta. Não equiparar a uma trilha de implementação técnica.",
+      "mapping_status": "not-mapped"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "template_only": true,
+  "environment_id": "example",
+  "run_id": "example-run",
+  "authorized_account_id": "REPLACE_LOCALLY",
+  "region": "sa-east-1",
+  "operator": "REPLACE_LOCALLY",
+  "approval_reference": "REPLACE_LOCALLY",
+  "expires_at": "REPLACE_LOCALLY",
+  "estimated_cost_and_date": "REPLACE_LOCALLY",
+  "retention_reason": "REPLACE_LOCALLY",
+  "stacks": [],
+  "active_consumers": [],
+  "private_state_locations": [],
+  "remaining_resources_check": "pending",
+  "financial_risks": [],
+  "notes": "Exemplo sem recursos ativos; guardar preenchimento em local/, nunca versionar IDs reais ou segredos."
+}
