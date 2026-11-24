@@ -76,3 +76,8 @@ Thumbs.db
 .vscode/
 .agents/
 .codex/
+
+# Terraform crash reports and plan variants
+crash.log
+crash.*.log
+*.tfplan.*
