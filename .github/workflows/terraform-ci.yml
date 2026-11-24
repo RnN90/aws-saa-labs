@@ -5,82 +5,84 @@ on:
     branches:
       - main
       - 'feat/**'
+      - 'fix/**'
+      - 'chore/**'
     paths:
       - 'labs/**/terraform/**'
       - '.github/workflows/terraform-ci.yml'
-
+      - 'shared/scripts/**'
   pull_request:
     branches:
       - main
     paths:
       - 'labs/**/terraform/**'
       - '.github/workflows/terraform-ci.yml'
-
+      - 'shared/scripts/**'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: terraform-ci-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+env:
+  TF_IN_AUTOMATION: 'true'
+  TF_INPUT: 'false'
 
 jobs:
   discover:
     name: Discover Terraform Labs
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
     outputs:
       matrix: ${{ steps.labs.outputs.matrix }}
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Discover Terraform directories
         id: labs
         shell: bash
         run: |
-          MATRIX=$(find labs -type f -name 'versions.tf' \
-            -path '*/terraform/versions.tf' \
-            -printf '%h\n' | sort -u | \
-            jq -R -s -c 'split("\n") | map(select(length > 0))')
-
-          echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
-
-          echo "Terraform directories:"
-          echo "$MATRIX" | jq .
+          set -euo pipefail
+          python3 -m unittest discover -s shared/scripts -p 'test_*.py'
+          matrix=$(python3 shared/scripts/discover-terraform.py)
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          echo "Terraform directories: $matrix"
+          if [[ "$matrix" == '[]' ]]; then
+            echo 'No tracked Terraform roots found; validation will be skipped.'
+          fi
 
   validate:
     name: Validate ${{ matrix.directory }}
     needs: discover
     if: ${{ needs.discover.outputs.matrix != '[]' }}
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     strategy:
       fail-fast: false
+      max-parallel: 4
       matrix:
         directory: ${{ fromJSON(needs.discover.outputs.matrix) }}
-
     defaults:
       run:
         working-directory: ${{ matrix.directory }}
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          terraform_version: "1.15.8"
+          persist-credentials: false
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
+        with:
+          terraform_version: '1.15.8'
           terraform_wrapper: false
-
       - name: Terraform Format
         run: terraform fmt -check -recursive
-
       - name: Terraform Init
-        run: terraform init -backend=false -input=false -lockfile=readonly
-
+        run: terraform init -backend=false -input=false -lockfile=readonly -no-color
       - name: Terraform Validate
         run: terraform validate -no-color

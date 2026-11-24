@@ -1,64 +1,52 @@
-# Instruções para agentes — aws-saa-labs
+# Engineering instructions — aws-saa-labs
 
-## Escopo e autorização
+## Purpose and scope
 
-- Trabalhe exclusivamente neste repositório e preserve alterações existentes do usuário.
-- Esta etapa é documental: registre o LAB 00 já executado, sem provisionar recursos.
-- Não execute comandos que criem, alterem ou excluam recursos AWS.
-- Não modifique arquivos locais do AWS CLI, credenciais, caches ou sessões SSO. Não execute login ou logout durante a documentação.
-- Não consulte contas AWS para complementar evidências sem autorização explícita. Validações desta entrega são locais.
-- Não execute `git commit`, `git push`, nem crie Pull Requests. Deixe os arquivos para revisão humana.
+- Build practical SAA-C03 architecture labs with Terraform, security, governance, FinOps and reproducible documentation for professional learning and portfolio use.
+- Work only in this repository. Preserve user changes, existing functionality and validated LAB 00 policies and content.
+- Prefer small, justified improvements. Do not introduce modules, dependencies or services without a concrete need. Distinguish implemented, historically validated and planned work.
+- LAB 00 and LAB 01 have been executed. LAB 01 was destroyed after validation. LABs 02–05 remain planned; do not invent implementations or create placeholder directories.
 
-## Estrutura e nomenclatura
+## Structure and Terraform
 
-- Use `labs/labNN-tema`, numeração de dois dígitos e nomes em `kebab-case`.
-- O LAB 00 contém README, documentos em `docs/`, política em `iam/policies/` e diagramas Mermaid em `diagrams/`.
-- LABs 01–05 estão apenas planejados. Não crie documentação de implementação, recursos fictícios ou arquivos de preenchimento para eles.
-- `shared/scripts`, `shared/templates` e `.github/workflows` ficam reservados para necessidades futuras.
+- Use `labs/labNN-topic/` with two digits and kebab-case. Each implemented lab has `README.md`; Terraform roots live in `terraform/`. Add `docs/`, `diagrams/` or `iam/policies/` only when needed.
+- Keep `main.tf`, `providers.tf`, `versions.tf`, `variables.tf`, `outputs.tf`, `.terraform.lock.hcl` and a sanitized `terraform.tfvars.example` in each Terraform root.
+- Use snake_case Terraform names, explicit types, useful descriptions, appropriate validation and deterministic tags. Preserve the common Project, Lab, Environment and ManagedBy tags.
+- Pin Terraform in CI, constrain provider versions and commit the generated lock file. Do not edit hashes manually. Review upgrades separately; CI initializes with `-backend=false -input=false -lockfile=readonly`.
+- Keep dependencies expressed through resource references. Use count for stable ordered resources; prefer for_each when stable semantic keys are needed. Changing existing resource addresses requires an explicit migration and impact analysis.
+- Preserve validated CIDRs, AZs, routes, tags and resource addresses unless the task authorizes architectural changes. Document replacement risk for changes to network inputs, list ordering or resource identities.
+- Require a locally supplied authorized AWS account ID in each AWS provider. Never hard-code a real account ID. Use temporary federated credentials; allow users to choose their own profile.
 
-## Arquitetura evolutiva e cumulativa
+## Git and contributions
 
-- Os laboratórios formam uma plataforma AWS evolutiva e cumulativa. Organize os LABs em uma sequência lógica de evolução arquitetural, permitindo reutilizar a fundação em laboratórios posteriores e em outras certificações AWS, sem reconstrução desnecessária.
-- É permitido e recomendado referenciar recursos e configurações de LABs anteriores quando houver relação técnica real. Documente essa relação e use links relativos para o LAB de origem.
-- Cada LAB deve identificar pré-requisitos, recursos herdados, recursos novos, dependências e possibilidades de reutilização futura. Quando não houver itens em uma dessas categorias, explicite isso sem inventar componentes ou dependências.
-- Para cada recurso compartilhado, registre o LAB de origem, os LABs consumidores conhecidos e a responsabilidade por manutenção e ciclo de vida, incluindo os critérios para preservação ou remoção.
-- Diferencie recursos existentes e confirmados de recursos planejados e de opções de arquitetura. Uma opção não implica implementação; registre separadamente se foi adotada. Não afirme que recursos futuros já foram provisionados.
-- A evolução para outras certificações é uma possibilidade arquitetural; não representa novos LABs ou recursos já implementados. LABs apenas planejados permanecem sujeitos às restrições de estrutura desta etapa.
+- Work on a dedicated branch, never directly on main. Use `feat/`, `fix/`, `docs/` or `chore/` and Conventional Commits, for example `chore(lab01): improve validation`.
+- Commit and push only when authorized by the task. Open PRs when requested; leave merge and final acceptance to a human. Never enable automatic merge.
+- Inspect tracked and untracked files before staging. Stage explicit paths; do not include unrelated local files or experimental IAM policies.
+- Keep LAB 00's validated policy unchanged. Never present experimental policies as complete, validated or least-privilege guarantees.
 
-## Documentação
+## Documentation
 
-- Cada LAB deve documentar os recursos, configurações, decisões arquiteturais, validações e procedimentos de cleanup de seu escopo, incluindo dependências reais e recursos herdados da plataforma. Não mencione recursos legados, treinamentos externos, incidentes históricos ou configurações particulares que não pertençam à plataforma de laboratórios.
-- Escreva em português brasileiro, preservando a terminologia técnica AWS quando apropriado.
-- Separe histórico confirmado, procedimento reproduzível, resultado esperado e validação pendente.
-- Não invente saídas, evidências, datas de execução, versões exatas ou nomes de recursos.
-- Não afirme que comandos de exemplo foram executados. Explicite as limitações das verificações.
-- Use links relativos para arquivos internos e referências oficiais AWS para detalhes técnicos.
-- Diferencie instruções no Console de comandos CLI e identifique a identidade necessária em cada etapa.
+- LAB 01 and new lab technical READMEs use English. Preserve LAB 00's Portuguese documentation; root and contributor documentation may use Portuguese.
+- Explain scenario, architecture, Mermaid diagram, addressing, decisions, prerequisites, deployment, validation, security, costs, certification concepts, cleanup, results and official references.
+- Separate historical evidence, expected results, commands for human execution and checks actually run. Never invent outputs, resource IDs, dates, connectivity tests or successful validation.
+- Use relative internal links and official external references. Do not publish real account IDs, resource IDs, session ARNs, private URLs, email addresses, credentials or unsanitized evidence.
+- Document inherited resources, origin lab, known consumers, maintenance owner and lifecycle responsibility. Do not assume a future lab consumes a resource merely because reuse is possible.
 
-## Segurança e menor privilégio
+## AWS security, governance and costs
 
-- Não leia nem publique credenciais, tokens, arquivos `.env`, caches SSO ou material MFA.
-- Não inclua dados pessoais, IDs reais de conta, ARNs reais, e-mails ou URLs específicas do portal.
-- Preserve exatamente a política IAM validada do LAB 00. Ampliação de permissões exige revisão humana explícita.
-- Não recomende `AdministratorAccess` como solução para falhas do operador.
-- Não edite roles `AWSReservedSSO` diretamente; documente seu gerenciamento pelo IAM Identity Center.
-- Não trate SCPs como restrição de usuários ou roles da conta de gerenciamento.
+- Do not run apply, destroy, import or any command that modifies AWS resources without explicit authorization for that operation. A repository review does not authorize provisioning, AWS queries, login/logout, IAM or Organizations changes.
+- Do not read credential files, SSO caches, tokens or private environment files. Do not change CLI configuration or authentication sessions.
+- Never version state, plan files, secrets or local tfvars. Ignore files are preventive controls, not substitutes for reviewing staged content. Keep local state private with restrictive permissions; propose encrypted, access-controlled remote state separately if collaboration requires it.
+- Do not recommend AdministratorAccess for operator failures or edit AWSReservedSSO roles directly. Manage those roles through IAM Identity Center. SCPs do not restrict the management account.
+- Prefer dedicated member accounts for workloads. LAB 00's read-only operator is insufficient for LAB 01 lifecycle operations; require a separately reviewed permission set without broadening the LAB 00 policy.
+- Introduce no paid services during review. Document pricing assumptions and avoid guarantees that an entire AWS account has no charges.
+- Classify resources as shared foundation or temporary. Document consumers and review dependencies before removal. Cleanup requires human confirmation of account, Region, resources and dependencies. Preserve Organizations, Identity Center, MFA and shared access.
 
-## Validação local
+## Validation and acceptance
 
-- Valide JSON, ações IAM esperadas, links relativos, cercas de código e estrutura Markdown.
-- Verifique a coerência dos diagramas; informe se não houver renderizador Mermaid disponível.
-- Revise a documentação e o diff em busca de segredos e identificadores antes da entrega.
-- Não confunda parse de JSON com validação IAM pelo serviço ou com teste de autorização.
-- Não instale ferramentas nem acesse a AWS apenas para obter um resultado de validação documental.
-
-## Custos e limpeza
-
-- Cada LAB deve classificar seus recursos como fundacionais/compartilhados ou temporários. Recursos fundacionais podem permanecer ativos para reutilização em LABs posteriores, desde que sua manutenção seja justificada, suas dependências sejam documentadas e seus custos sejam avaliados. Recursos temporários devem possuir procedimento de remoção seguro. A conclusão de um LAB não exige a destruição de sua infraestrutura quando ela integra a fundação reutilizável da plataforma.
-- Preserve Organizations, IAM Identity Center, MFA e atribuições de acesso compartilhadas. Reversões específicas do LAB exigem aprovação humana e não podem comprometer outros acessos.
-- Cleanup exige confirmação humana do alvo, dependências e conta; confirme também a região quando aplicável.
-- O cleanup de um LAB não pode remover recursos ainda necessários para LABs posteriores. Antes de propor remoção de recursos compartilhados, confira os consumidores documentados e preserve as dependências necessárias à continuidade da plataforma.
-- Recursos temporários devem ser removidos quando não forem mais necessários, visando controle de custos. Documente sua finalidade, condição de encerramento e responsável pela remoção; a execução depende da revisão de alvos e dependências e da confirmação humana exigidas acima.
-- O operador do LAB 00 não tem permissões de exclusão; não amplie sua política para realizar limpeza.
-- Não declare a conta livre de cobranças com base nas validações de identidade e acesso do LAB 00.
-- Ao entregar, apresente arquivos criados, verificações realmente executadas e pendências para revisão, sem commit automático.
+- Before editing, read repository status, history, applicable instructions, Terraform and CI configuration.
+- Run `terraform fmt -check -recursive`, backend-free readonly-lock init and `terraform validate` for every root when possible. No AWS credentials are needed for these checks. Never run a real plan just to validate configuration.
+- Run actionlint, exercise discovery for empty/multiple/missing-lock roots, review relative links, Mermaid syntax, JSON and staged files for sensitive data. Report unavailable tools and network restrictions precisely.
+- CI must remain credential-free, read-only and deployment-free. Pin actions by full verified commit SHA, disable checkout credential persistence, set timeouts and keep deterministic lab discovery. Do not use pull_request_target for untrusted code.
+- Acceptance requires preserved functionality and LAB 00, no AWS mutation or exposed credentials, reproducible documentation, justified incremental changes, passing available checks and a human-reviewable diff/PR when requested.
+- Report changed files, technical decisions, actual checks, limitations and follow-up recommendations. Syntax validation is not AWS authorization testing; route inspection is not workload connectivity testing.
