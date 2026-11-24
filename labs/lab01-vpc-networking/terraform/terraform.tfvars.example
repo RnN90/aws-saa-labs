@@ -1,4 +1,4 @@
-# Replace this placeholder with your own account ID in an ignored terraform.tfvars.
+# Substitua este valor de exemplo pelo ID da sua conta em um terraform.tfvars ignorado pelo Git.
 aws_account_id = "000000000000"
 aws_region     = "sa-east-1"
 aws_profile    = "aws-saa-labs"

@@ -1,29 +1,29 @@
 output "vpc_id" {
-  description = "ID of the lab VPC."
+  description = "ID da VPC do laboratório."
   value       = aws_vpc.lab.id
 }
 
 output "public_subnet_ids" {
-  description = "Public subnet IDs in availability_zones order."
+  description = "IDs das subnets públicas, na ordem de availability_zones."
   value       = aws_subnet.public[*].id
 }
 
 output "private_subnet_ids" {
-  description = "Private subnet IDs in availability_zones order."
+  description = "IDs das subnets privadas, na ordem de availability_zones."
   value       = aws_subnet.private[*].id
 }
 
 output "internet_gateway_id" {
-  description = "ID of the Internet Gateway attached to the lab VPC."
+  description = "ID do Internet Gateway anexado à VPC do laboratório."
   value       = aws_internet_gateway.lab.id
 }
 
 output "public_route_table_id" {
-  description = "ID of the route table with the Internet Gateway default route."
+  description = "ID da Route Table com a rota padrão para o Internet Gateway."
   value       = aws_route_table.public.id
 }
 
 output "private_route_table_id" {
-  description = "ID of the route table containing only the VPC local route."
+  description = "ID da Route Table que contém somente a rota local da VPC."
   value       = aws_route_table.private.id
 }

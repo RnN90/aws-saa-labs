@@ -1,6 +1,6 @@
 # AWS SAA-C03 — Laboratórios práticos
 
-Programa de estudos com laboratórios hands-on para a certificação **AWS Certified Solutions Architect – Associate (SAA-C03)**. O objetivo é relacionar decisões de arquitetura à operação dos serviços AWS, com atenção a segurança, resiliência, desempenho e custos.
+Programa de estudos com laboratórios práticos para a certificação **AWS Certified Solutions Architect – Associate (SAA-C03)**. O objetivo é relacionar decisões de arquitetura à operação dos serviços AWS, com atenção a segurança, resiliência, desempenho e custos.
 
 Este repositório combina arquitetura AWS, Terraform, CI/CD, segurança, governança, FinOps e documentação técnica. Os LABs 00 e 01 foram executados e validados pelo responsável; a infraestrutura do LAB 01 foi destruída após a validação. O repositório contém código provisionável, mas o CI executa somente verificações estáticas, sem acesso à AWS.
 
@@ -42,11 +42,11 @@ Não use a identidade operacional do LAB 00 para administrar Organizations ou IA
 | LAB 04 — `lab04-sqs-sns` | Amazon SQS e Amazon SNS | Planejado |
 | LAB 05 — `lab05-cloudwatch` | Amazon CloudWatch | Planejado |
 
-Os LABs implementados ficam em `labs/labNN-tema/`, com README e subdiretórios conforme a necessidade. O LAB 01 mantém seu root Terraform em `terraform/`; `shared/scripts/` contém a descoberta de roots e `.github/workflows/` contém o [Terraform CI](.github/workflows/terraform-ci.yml). Não criamos diretórios de preenchimento para LABs futuros.
+Os LABs implementados ficam em `labs/labNN-tema/`, com README e subdiretórios conforme a necessidade. O LAB 01 mantém seu diretório raiz Terraform em `terraform/`; `shared/scripts/` contém a descoberta de diretórios raiz e `.github/workflows/` contém o [Terraform CI](.github/workflows/terraform-ci.yml). Não criamos diretórios de preenchimento para LABs futuros.
 
 ## Convenções
 
-- README técnico do LAB 01 e novos LABs em inglês; documentação histórica do LAB 00 preservada em português.
+- Toda a documentação em português brasileiro (pt-BR), incluindo os LABs atuais e futuros, relatórios, diagramas e comentários explicativos. Preserve termos técnicos consolidados e identificadores de código em inglês; commits seguem Conventional Commits em inglês.
 - Diretórios em `kebab-case`, laboratórios em `labNN-tema` e documentos Markdown com nomes descritivos.
 - Região de referência do LAB 00: `sa-east-1`; perfil CLI: `aws-saa-labs`.
 - Comandos publicados são instruções para execução humana, não prova de execução. Resultados históricos ficam identificados em [validação](labs/lab00-identity-governance/docs/validation.md).
@@ -61,6 +61,6 @@ As validações de identidade e acesso **não comprovam ausência de cobranças 
 
 ## Validação de engenharia
 
-O CI descobre os roots Terraform versionados, executa `fmt`, `init -backend=false -lockfile=readonly` e `validate` em matrix, sem credenciais AWS e sem provisionamento. Actions são fixadas por SHA; Terraform permanece na versão 1.15.8 e o provider AWS está travado em 6.74.0. Consulte os procedimentos em [CONTRIBUTING.md](CONTRIBUTING.md) e as decisões e limitações da [revisão de engenharia](docs/lab01-engineering-review.md).
+O CI descobre os diretórios raiz Terraform versionados, executa `fmt`, `init -backend=false -lockfile=readonly` e `validate` em matriz, sem credenciais AWS e sem provisionamento. Actions são fixadas por SHA; Terraform permanece na versão 1.15.8 e o provider AWS está travado em 6.74.0. Consulte os procedimentos em [CONTRIBUTING.md](CONTRIBUTING.md) e as decisões e limitações da [revisão de engenharia](docs/lab01-engineering-review.md).
 
 Para reproduzir o LAB 01, use seu próprio perfil temporário e configure o ID da conta autorizada apenas em arquivo local ignorado. Consulte os pré-requisitos e as instruções completas no README do LAB.
